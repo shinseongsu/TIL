@@ -7,4 +7,5 @@
         <constructor-arg value="hello"/>
     </bean>
 
+    <bean id="whiteship" class="com.java.gof.abstract_factory.springExample.ShipFactory" />
 </beans>
