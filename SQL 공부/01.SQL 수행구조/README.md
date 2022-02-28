@@ -185,6 +185,162 @@ SQL 옵티마이저가 선택한 실행경로를 실제 실행 가능한 코드 
             <td>FIRST_ROWS(N)</td>
             <td>최초 N건 응답속도 최적화</td>
         </tr>
+        <tr>
+            <td rowspan="5">액세스<br>방식</td>
+            <td>FULL</td>
+            <td>Table Full Scan으로 유도</td>
+        </tr>
+        <tr>
+            <td>INDEX</td>
+            <td>Index Scan으로 유도</td>
+        </tr>
+        <tr>
+            <td>INDEX_DESC</td>
+            <td>Index를 역순으로 스캔하도록 유도</td>
+        </tr>
+        <tr>
+            <td>INDEX_FFS</td>
+            <td>Index Fast Full Scan으로 유도</td>
+        </tr>
+        <tr>
+            <td>INDEX_SS</td>
+            <td>INDEX Skip Scan으로 유도</td>
+        </tr>
+        <tr>
+            <td rowspan="3">조인<br>순서</td>
+            <td>ORDERED</td>
+            <td>FROM 절에 나열된 순서대로 조인</td>
+        </tr>
+        <tr>
+            <td>LEADING</td>
+            <td>LEADING 힌트 괄호에 기술한 순서대로 조인</td>
+        </tr>
+        <tr>
+            <td>SWAP_JOIN_INPUTS</td>
+            <td>해시 조인 시, BULID INPUT을 명시적으로 선택</td>
+        </tr>
+        <tr>
+            <td rowspan="6">조인<br>순서</td>
+            <td>USE_NL</td>
+            <td>NL 조인으로 유도</td>
+        </tr>
+        <tr>
+            <td>USE_MERGE</td>
+            <td>소트 머지 조인으로 유도</td>
+        </tr>
+        <tr>
+            <td>USE_HASH</td>
+            <td>해시 조인으로 유도</td>
+        </tr>
+        <tr>
+            <td>NL_SJ</td>
+            <td>NL 세미조인으로 유도</td>
+        </tr>
+        <tr>
+            <td>MERGE_SJ</td>
+            <td>소트머지 세미조인으로 유도</td>
+        </tr>
+        <tr>
+            <td>HASH_SJ</td>
+            <td>해시 세미조인으로 유도</td>
+        </tr>
+        <tr>
+            <td rowspan="8">쿼리<br>변환</td>
+            <td>MERGE</td>
+            <td>뷰 머징 유도</td>
+        </tr>
+        <tr>
+            <td>NO_MERGE</td>
+            <td>뷰 머징 방지</td>
+        </tr>
+        <tr>
+            <td>UNNEST</td>
+            <td>서브쿼리 Unnesting유도<br>(서브쿼리를 풀어서 조인으로 변환)</td>
+        </tr>
+        <tr>
+            <td>NO_UNNEST</td>
+            <td>서브쿼리 Unnesting 방지</td>
+        </tr>
+        <tr>
+            <td>PUSH_PRED</td>
+            <td>조인조건 Pushdown 유도</td>
+        </tr>
+        <tr>
+            <td>NO_PUSH_PRED</td>
+            <td>조인조건 Pushdown 방지</td>
+        </tr>
+        <tr>
+            <td>USE_CONCAT</td>
+            <td>OR 또는 IN-List 조건을 OR-Expansion으로 유도</td>
+        </tr>
+        <tr>
+            <td>NO_EXPAND</td>
+            <td>OR 또는 IN-List 조건을 OR-Expansion으로 방지</td>
+        </tr>
     </tbody>        
 </table>
+
+## 블록 단위 I/O
+
+오라클을 포함한 모든 DBMS에서는 I/O는 블록 단위로 이루어져있다.  
+즉, 하나의 레코드를 읽더라도 레코드가 속한 블록 전체를 읽는다.
+
+- 데이터파일에서 DB 버퍼캐시로 블록을 적재할 때
+- 데이터파일에서 블록을 직접 읽고 쓸 때 (Direct Path I/O)
+- 버퍼캐시에서 블록을 읽고 쓸 때
+- 버퍼캐시에서 변경된 블록을 데이터파일에 쓸 때
+
+
+## 버퍼캐시 탐색 메커니즘
+
+Direct Path I/O를 제외한 모든 블록 I/O는 메모리 버퍼캐시를 경유한다.
+
+- 인덱스 루트 블록을 읽을 떄
+- 인덱스 루트 블록에서 얻은 주소 정보로 브랜치 블록을 읽을 떄
+- 인덱스 브랜치 블록에서 얻은 주소 정보로 리프 블록을 읽을 떄
+- 인덱스 리프 블록에서 얻은 주소 정보로 테이블 블록을 읽을 때
+- 테이블 블록을 Full Scan 할 때
+
+
+## 버퍼 캐시 히트율
+버퍼캐시 히트율(Buffer Cache Hit Ratio, BCHR)을 구하는 공식
+
+```
+BCHR = ( 캐시에서 곧바로 찾은 블록 수 / 총 읽은 블록 수 ) * 100
+       ( (논리적 I/O - 물리적 I/O) * 논리적 I/O ) * 100
+       ( 1 - (물리적 I/O) / (논리적 I/O) ) * 100
+```
+
+
+## LRU 알고리즘
+
+모든 DBMS는 사용빈도가 노ㅠ은 데이터 블록들이 버퍼캐시에 오래 남아 있도록 하기 위해 LRU알고리즘을 사용한다.
+
+## 시퀀셜 엑세스 vs 랜덤 엑세스
+
+시퀀셜(Sequential) 엑세스는 논리적 또는 물리적으로 연결된 순서에 따라 차례로 블록을 읽어나가는 방식이다. 인덱스와 테이블을 스캔할때 이방식을 사용한다.  
+
+랜덤(Random) 엑세스는 논리적, 물리적인 순서를 따르지 않고, 레코드 하나를 읽기 위해 한 블록씩 접근하는 방식이다. 인덱스를 스캔하면 서 얻은 ROWID로 테이블 블록을 액세스 할 때 이 방식을 사용한다.
+
+## Single Block I/O
+
+인덱스를 이용할 때는 기본적으로 인덱스와 테이블 블록 모두 Single Block I/O 방식을 사용한다.  
+인덱스는 소량 데이터를 읽을 때 주로 사용하므로 이 방식이 효울적이다.
+
+- 인덱스 루트 블록을 읽을 때
+- 인덱스 루트 블록에서 얻은 주소 정보로 브랜치 블록을 읽을 떄
+- 인덱스 브랜치 블록에서 얻은 주소 정보로 리프 블록을 읽을 때
+- 인덱스 리프 블록에서 얻은 주소 정보로 테이블 블록을 읽을 때
+
+```
+테이블을 Full Scan 하거나 인덱스를 Fast Full Scan 할때는 Multiblock I/O 방식을 사용한다.
+```
+
+## Multiblock I/O
+
+Multiblock I/O는 캐시에서 찾지 못한 특정 블록을 읽으려고 I/O call 디스크 상에 그 블록과 인접한 블록들을 한꺼번에 읽어 캐시에 미리 적재하는 기능이다. Multiblock I/O 단위는 db_file_multibock_read_count 파라미터에 의해 결정된다.  
+
+인접한 블록이란 같은 익스텐트에 속한 블록을 의마하며, Multiblock I/O 방식으로 읽더라도 익스텐트 경계를 넘지 못한다.
+
+
 
