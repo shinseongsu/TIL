@@ -187,7 +187,66 @@ SELECT * FROM 고객 WHERE REPLACE(전화번호, '-', '') = :PHONE_NO
 리버스 키 인덱스를 생성하는 방법
 ```sql
 CREATE INDEX HOT_TABLE_R1 ON HOT_TABLE( RIGHT_GROWING_COL ) REVERSE; 
+
+CREATE INDEX HOT_TABLE_R1 ON HOT_TABLE( REVERSE(RIGHT_GROWING_COL));
+
+
+SELECT * FROM HOT_TABLE A
+WHERE REVERSE(RIGHT_GROWING_COL) = REVERSE(:KEYWORD)
 ```
+
+### 여러 인덱스 특징 ( 랜덤 액세스를 줄일 수 있다.)
+
+- IOT는 테이블을 인덱스 구조로 관리한다. 일반 힙(Heap) 구조 테이블은 값을 무작위로 입력하지만, IOT는 지정한 키 값 순으로 정렬 상태를 유지한다. 키 값 이외의 컬럼도 모두 인덱스 리프 블록에 저장하므로 테이블 랜덤 액세스가 전혀 발생하지 않는다.
+
+- 클러스터는 값이 같은 레코드를 한 블록(데이터 많을 경우 연결된 여러 블록)에 모아서 저장하므로 인덱스를 이용한 테이블 랜덤 액세스를 줄이는데 도움을 준다.
+
+- 테이블 파티션은 사용자가 지정한 기준에 따라 데이터를 세그먼트 단위로 모아서 저장한다. 따라서 특정 조건을 만족ㄱ하는 데이터를 인덱스를 이용한 랜덤 액세스가 아닌 full Scan 방식으로 빠르게 찾을 수 있다.
+
+
+## IOT(Index-Organized Table)
+
+- IOT는 PK순으로 정렬 상태를 유지하는 테이블이다.  
+일반 속성이 없꼬 PK가 테이블 IOT로 구성하면, 별도 PK 인덱스를 생성하지 않아도 되므로 공간을 절약할 수 있고 Insert 성능도 높일 수 있다.
+
+- 일자순으로저장하고 PK끼리 모아서 저장하므로 조회하는 성능쿼리를 높일 수 있다.
+
+- 일자 순으로 정렬되도록 IOT를 구성하면, 한 달 이상 넓은 범위로 조회하더라도 테이블 랜덤 액세스가 전혀 발생하지 않아 빠른 조회가 가능하다.
+
+- 일반적인 속성을 IOT 리프 블록에 저장할 경우, 인덱스 Dept가 증가하고 블록 I/O를 증가시킴으로써 랜덤 엑세스 감소 효과를 상쇄한다.
+
+- SQL server 클러스트형 인덱스는 PK가 아닌 컬럼으로도 생성할 수 있다.
+
+- 클러스터형 인덱스는 데이터를 정렬하는 기준을 정의하는 기능이므로 테이블에 한 개만 생성할 수 있다. (Oracle, SQL serverr 둘다)
+
+
+### Index Range Scan 불가 조건
+
+인덱스를 정상적으로 Range Scan 할 수 없는 이유는 인덱스 스캔 시작점을 찾을 수 없기 때문이다.  
+일정 범위를 스캔하려면 '시작지점' 과 '끝지점'이 있어야한다.
+
+- 중간 값 검색(양쪽 % LIKE 조건) 하는 경우
+- 부정형 비교 조건인 경우
+- 인덱스 컬럼을 변경하는 경우
+- NVL() 같은 경우는 값에 따라 인덱스 Range Scan 가능 여부가 결정된다.
+
+
+### IS NULL 조건에 대한 Index Range Scan
+
+오라클 구성 컬럼이 모두 NULL인 레코드는 인덱스에 저장하지 않습니다. 따라서 단일 컬럼에 생성한 인덱스에 대한 IS NULL 조건으로 Index Range Scan이 불가능하다.  
+2개 이상 컬럼으로 구성된 결합 인덱스에 대해서는 IS NULL 조건에 대한 Index Range Scan이 가능하다. 구성 컬럼 중 하나라도 NULL이 아닌 레코드는 인덱스에 저장하기 때문이다.
+
+
+### Index Range Scan 가능 조건
+
+인덱스를 Range Scan 하려면 인덱스 선두 컬럼이 가공되지 않은 상태로 조건절에 있어야 한다.
+
+조건절이 NOT BETWEEN 조건인경우 CONCATENATION(옵티마이저에 의한 UNION ALL 분기)가 일어나면 RangeScan이 가능하다.  
+참고로, CONCATENATION을 유도하려면 USE_CONCAT 힌트를 쓰면 된다.
+
+OR 조건은 기본적으로 Index Range Scan을 위한 엑세스 조건으로 사용할 수 없다.
+
+-> 인덱스에 없는 컬럼을 쓸경우 Table Full Scan을 하게 된다.
 
 
 
