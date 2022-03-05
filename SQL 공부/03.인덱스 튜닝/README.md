@@ -217,7 +217,7 @@ WHERE REVERSE(RIGHT_GROWING_COL) = REVERSE(:KEYWORD)
 
 - SQL server 클러스트형 인덱스는 PK가 아닌 컬럼으로도 생성할 수 있다.
 
-- 클러스터형 인덱스는 데이터를 정렬하는 기준을 정의하는 기능이므로 테이블에 한 개만 생성할 수 있다. (Oracle, SQL serverr 둘다)
+- 클러스터형 인덱스는 데이터를 정렬하는 기준을 정의하는 기능이므로 테이블에 한 개만 생성할 수 있다. (Oracle, SQL server 둘다)
 
 
 ### Index Range Scan 불가 조건
@@ -249,4 +249,164 @@ OR 조건은 기본적으로 Index Range Scan을 위한 엑세스 조건으로 �
 -> 인덱스에 없는 컬럼을 쓸경우 Table Full Scan을 하게 된다.
 
 
+## OR 조건에 대한 Index Range Scan
+
+OR 조건은 기본적으로 Index Range Scan을 위한 액세스 조건으로 사용할 수 없다. OR 조건으로는 수직적 탐색을 통해 스캔 시작점을 찾을 수 없기 때문이다.  
+다만, CONCATENATION(옵티마이저에 의한 UNION ALL 분기)으로 처리했을 때 각각 수직 탐색을 위한 엑세스 조건으로 사용할 인덱스가 있다면, Index Range Scan이 가능하다.
+
+
+#### Index Range 만들기 연습문제
+
+```sql
+[ 모법 1 ]
+
+select 주문번호, 주문일시, 고객ID, 총주문금액, 처리상태
+ from 주문
+where 주문상태코드 in (0, 1, 2, 3, 4, 5)
+  and 주문일자 between :dt1 and :dt2
+
+[ 모법 2 ]
+
+select 주문번호, 주문일시, 고객 ID, 총주문금액, 처리상태
+  from 주문
+ where 주문상태코드 in ( select 주문상태코드
+                        from 주문상태
+                       where 주문상태코드 <> 3 )
+   and 주문일자 between :dt1 and :dt2
+
+
+[ 모법 3 ]
+
+select /*+ no_merge(a) ordered use_nl(b) */
+       주문번호, 주문일시, 고객 ID, 총주문금액, 처리상태
+  from ( select 주문상태코드
+           from 주문상태
+          where 주문상태코드 <> 3 ) a, 주문 b
+ where b.주문상태코드 = a.주문상태코드
+   and b.주문일자 between :dt1 and :dt2             
+
+
+[ 모법 4 ]
+
+select /*+ USE_CONCAT */
+       주문번호, 주문일시, 고객 ID, 총주문금액, 처리상태
+  from 주문 
+ where ( 주문상태코드 < 3 or 주문상태코드  )
+   and 주문일자 between :dt1 and :dt2
+
+[ 모범 5 ]
+
+select 주문번호, 주문일시, 고객 ID, 총주문금액, 처리상태
+  from 주문
+ where 주문상태 < 3
+   and 주문일자 between :dt1 and :dt2
+union all
+select 주문번호, 주문일시, 고객 ID, 총주문금액, 처리상태   
+  from 주문
+ where 주문상태코드 > 3
+   and 주문일자 between :dt1 and :dt2   
+
+```
+
+
+### Index Range Scan 유도하기 연습문제
+
+```sql
+[인덱스 구성]
+월말계좌상태_PK: 계좌번호 + 계좌일련번호 + 기준년월
+월말계좌상태_X1: 기준년월 + 상태구분코드
+
+[수정할 SQL]
+UPDATE 월별계좌상태 SET 상태구분코드 = '07'
+ WHERE 상태구분코드 <> '01'
+   AND 기준년월 = :BASE_DT
+   AND 게좌번호 || 계좌일련번호 IN
+       ( SELECT 게좌 번호 || 게좌일련번호
+           FROM 계좌원장
+          WHERE 개설일자 LIKE :STD_YM || '%' )
+
+[수정 SQL ]
+UPDATE 월별계좌상태 SET 상태구분코드 = '07'
+ WHERE 상태구분코드 <> '01'
+   AND 기준년월 = :BASE_DT
+   AND (계좌번호, 계좌일련번호) IN 
+       ( SELECT 계좌번호, 계좌일련번호
+           FROM 계좌원장
+          WHERE 개설일자 LIKE :STD_YM || '%' )
+
+```
+
+
+### Index Range Scan 유도하기 문제 - 2
+
+```sql
+[ 데이터 타입 ]
+지수구분코드 VARCHAR2(1)
+지수업종코드 VARCHAR2(3)
+
+[ 인덱스 구성 ]
+일별지수업종별거래_PK : 지수구분코드 + 지수업종코드 + 거래일자
+일별지수업종별거래_X1 : 거래일자
+
+[ 수정할 SQL ]
+SELECT 거래일자
+     , SUM(DECODE(지수구분코드, '1', 지수종가, 0)) KOSPI200_IDX
+     , SUM(DECODE(지수구분코드, '1', 누적거래량, 0)) KOSPI200_IDX_TRDVOL
+     , SUM(DECODE(지수구분코드, '2', 지수종가, 0)) KOSDAQ_IDX_TRDVOL
+  FROM 일별지수업종별거래 A
+ WHERE 거래일자 BETWEEN :startDd AND :endDd
+   AND 지수구분코드 || 지수업종코드 IN ('1001', '2002')
+ GROUP BY 거래일자
+
+
+[ 수정 SQL ]
+SELECT /*+ USE_CONCAT */
+       거래일자
+     , SUM(DECODE(지수구분코드, '1', 지수종가, 0)) KOSPI200_IDX
+     , SUM(DECODE(지수구분코드, '1', 누적거래량, 0)) KOSPI200_IDX_TRDVOL
+     , SUM(DECODE(지수구분코드, '2', 지수종가, 0)) KOSDAQ_IDX_TRDVOL
+  FROM 일별지수업종별거래 A
+ WHERE 거래일자 BETWEEN :startDd AND :endDd
+   AND (지수구분코드, 지수업종코드) IN (('1', '001'), ('2', '003'))
+ GROUP BY 거래일자
+
+```
+
+### 아래 쿼리를 튜닝하라
+
+```sql
+[ 인덱스 구성 ]
+주문_PK : 주문일자 + 주문번호
+
+[ SQL ]
+SELECT NVL(MAX(주문번호 + 1), 1)
+  FROM 주문
+ WHERE 주문일자 = :주문일자 
+
+[ 실행계획 ]
+SELECT STATEMENT Optimizer=ALL_ROWS
+  SORT (AGGREGATE)
+    INDEX (RANGE SCAN) OF '주문_PK' (INDEX (UNIQUE))
+
+
+
+==> 튜닝 후, 실행계획
+
+SELECT STATEMENT Optimizer=ALL_ROWS
+  SORT (AGGREGATE)
+    FIRST ROW
+      INDEX (RANGE SCAN (MIN/MAX)) OF'주문_PK' (INDEX)
+
+```
+
+## 테이블 액세스 최소화
+
+인덱스 ROWID는 테이블 레코드와 직접 연결된 구조가 아니다. 데이터파일상에서 테이블 레코드를 찾아가기 위한 논리적인 주소 정보이다.  
+인덱스 ROWID에 포함된 데이터 블록 주소(= 데이터파일번호 + 블록번호)는 디스크 상의 블록 주소지만, 블록을 매번 데이터파일에서 읽는다면 성능은 이루 말할 수 없이 느리다.  
+I/O 성능을 위한 버퍼캐시 활용이 필수인 이유다. ROWID가 가리키는 블록을 버퍼캐시에서 먼저 찾아보고, 못 찾을 떄만 데이터파일에서 읽는다. 물론 버퍼캐시에 적재한 후에 읽는다.
+
+캐시에서 블록을 읽을 때는 읽고자 하는 데이터 블록 주소를 해시 함수에 입력해서 해시 체인을 찾고 거기서 버퍼 헤더를 찾는다. 캐시에 적재할 때와 읽을 때 같은 해시 함수를 사용하므로 버퍼 헤더는 항상 같은 해시 체인에 연결된다. 반면, 실제 데이터가 담긴 버퍼 블록은 매번 다른 위치에 캐싱되는데, 그 메모리 주소값을 버퍼 헤더가 가지고 있다.
+
+버퍼캐시는 시스템 공유 메모리에 위치하므로 액세스를 직렬화하기 위한 Lock 매커니즘이 작동한다. 따라서 버퍼캐시에서 블록을 읽을 때마다 Latch와 Buffer Lock을 획득해야 한다.  
+동시 액세스가 심할때는 Latch와 Buffer Lock에 대한 경합까지 발생하므로 인덱스 ROWID를 이용한 테이블 액세는 생각보다 고비용 구조다.
 
