@@ -7,7 +7,7 @@ import java.util.Objects;
 public class LottoNo implements Comparable<LottoNo> {
 
     public static final int MIN = 1;
-    public static final int MAX = 48;
+    public static final int MAX = 45;
 
     private final int lottoNo;
 
