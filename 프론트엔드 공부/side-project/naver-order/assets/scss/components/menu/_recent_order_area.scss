@@ -1,0 +1,102 @@
+.recent-order-area {
+    display: flex;
+    margin-top: 16px;
+    padding: 18px 0;
+    border-radius: 2px;
+    background-color: #fff;
+
+    .recent-title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        padding: 8px;
+        border-right: 1px solid $booking-color-bg102;
+        line-height: 1.42;
+        font-size: 12px;
+        font-weight: 700;
+        color: $booking-color-text6;
+        .ico-clock {
+            margin-bottom: 4px;
+            width: 14px;
+        }
+    }
+
+    .recent-menu-list {
+        display: flex;
+    }
+
+    .recent-menu-item {
+        box-sizing: content-box;
+        position: relative;
+        padding-right: 16px;
+        width: 80px;
+        text-align: center;
+        &.is-ordered {
+            padding-left: 16px;
+            border-right: 1px solid $booking-color-bg102;
+            & + .recent-menu-item {
+                padding-left: 16px;
+            }
+        }
+    }
+
+    .menu-img-area {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        border: 1px solid $booking-color-border149; 
+        border-radius: 100%;
+        background-color: rgba(0,0,0,0.01);
+    }
+
+    .badge-popular {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 5px;
+        border-radius: 10px;
+        line-height: 16px;
+        font-size: 11px;
+        font-weight: 700;
+        background-color: #ff61a7;
+        color: #fff;
+    }
+
+    .menu-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+    }
+
+    .badge-cart {
+        position: absolute;
+        top: 50px;
+        right: 16px;
+        display: flex;
+        padding: 6px;
+        border: 1px solid $booking-color-border150;
+        border-radius: 100%;
+        background-color: $booking-color-bg18;
+    }
+
+    .ico-cart {
+        width: 16px;
+        height: 16px;
+    }
+
+    .menu-name {
+        margin-top: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        @include ellipsis;
+    }
+
+    .menu-price {
+        font-size: 13px;
+        font-weight: 700;
+        color: $point-color;
+        @include ellipsis;
+    }
+}

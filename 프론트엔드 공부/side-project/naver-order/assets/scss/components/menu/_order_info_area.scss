@@ -1,0 +1,90 @@
+.order-info-area {
+    padding: 10px $m-padding 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    background-color: $booking-color-bg155;
+
+    .info-main-title {
+        line-height: 39px;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        color: $booking-color-text6;
+        .ico-n-logo {
+            margin-right: 6px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+.tab-switch-box {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    .tab-switch {
+        flex: 1;
+        background-color: $booking-color-bg158;
+        line-height: 40px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #666;
+        letter-spacing: -0.3px;
+        text-align: center;
+
+        &.is-active {
+            position: relative;
+            flex-grow: 1.2;
+            border: 1px solid $booking-color-border145;
+            background-color: $booking-color-bg157;
+            font-size: 15px;
+            color: $booking-color-text126;
+            box-shadow: 0 2px 3px 0 rgba(0,0,0,0.05);
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -9px;
+                left: 50%;
+                width: 10px;
+                height: 10px;
+                border: 1px solid;
+                border-width: 0 1px 1px 0;
+                background-color: $booking-color-bg157;
+                transform: rotate(45deg) translateX(-50%);
+            }
+
+            .ico-check {
+                display: inline-block;
+                margin-left: 4px;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .ico-check {
+        display: none;
+    }
+}
+
+.info-main-notice {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    background-color: #fff;
+    font-size: 14px;
+    letter-spacing: -0.3px;
+    color: #333;
+    &.alert {
+        color: $point-color;
+        font-weight: 700;
+    }
+    .ico-clock {
+        margin-right: 6px;
+    }
+}

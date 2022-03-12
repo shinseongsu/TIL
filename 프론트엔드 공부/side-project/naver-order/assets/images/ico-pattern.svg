@@ -1,0 +1,8 @@
+<svg class="content-top-pattern" width="100%" height="100%">
+    <defs>
+    <pattern id="pattern-triangle" x="0" y="0" width="10" height="11" patternUnits="userSpaceOnUse">
+        <polygon points="5 5, 10 10, 10 11, 0 11, 0 10"></polygon>
+    </pattern>
+    </defs>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-triangle)"></rect>
+</svg>

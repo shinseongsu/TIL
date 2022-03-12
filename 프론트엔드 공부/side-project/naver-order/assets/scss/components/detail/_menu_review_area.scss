@@ -1,0 +1,145 @@
+.menu-review-area {
+    // 공통
+    .title {
+        line-height: 22px;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        color: $booking-color-text6;
+        .num {
+            margin-left: 6px;
+            color: $green;
+        }
+    }
+
+    // 주문자 사진
+    .orderer-img-area {
+        padding-bottom: 22px;
+        background-color: #fff;
+        .title {
+            padding: 6px $m-padding 12px;
+        }
+    }
+
+    .orderer-pic-list {
+        display: flex;
+    }
+
+    .orderer-pic-item {
+        display: flex;
+        & + .orderer-pic-item {
+            margin-left: 1px;
+        }
+        &:first-child::before,
+        &:last-child::after {
+            content: '';
+            display: block;
+            width: $m-padding;
+            height: 100%;
+        }
+    }
+
+    .orderer-pic-link {
+        position: relative;
+        display: flex;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.05);
+        }
+    }
+
+    // 주문자 리뷰
+    .orderer-review-area {
+        margin-top: 12px;
+        background-color: #fff;
+        .title {
+            padding: 16px $m-padding;
+        }
+    }
+
+    .review-list {
+        border-top: 1px solid $booking-color-border4;
+    }
+    
+    .review-item {
+        padding: 16px $m-padding;
+        border-bottom: 1px solid $booking-color-border4;
+    }
+
+    .review-star {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: $booking-color-text2;
+        transform: translateX(-2px);
+    }
+
+    .ico-star-group {
+        position: relative;
+        margin-right: 6px;
+        display: inline-block;
+        width: 77px;
+        height: 13px;
+        background: url("../images/ico-star-group.svg") no-repeat center left;
+    }
+
+    .ico-star-group-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background: url("../images/ico-star-group-fill.svg") no-repeat center left;
+    }
+
+    .review-text {
+        margin-top: 4px;
+        line-height: 24px;
+        color: $booking-color-text6;
+    }
+    
+    .review-info {
+        margin-top: 8px;
+        font-size: 14px;
+        letter-spacing: -0.4px;
+        color: $booking-color-text5;
+    }
+
+    .review-date::before {
+        content: '';
+        display: inline-block;
+        margin: 0 8px;
+        width: 1px;
+        height: 12px;
+        background-color: $booking-color-bg105;
+        vertical-align: middle;
+    }
+
+    .btn-more {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $booking-color-text3;
+        &::after {
+            content: '';
+            margin-left: 6px;
+            margin-bottom: 6px;
+            width: 8px;
+            height: 8px;
+            border-top: 1px solid;
+            border-right: 1px solid;
+            transform: rotate(135deg);
+        }
+    }
+}

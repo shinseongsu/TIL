@@ -1,0 +1,42 @@
+.container {
+    min-height: 100vh;
+    background-color: $booking-color-border151;
+    &:not(.order) {
+        padding-top: $place-header-height + $place-tab-height;
+        padding-bottom: $order-box-area-height;
+    }
+}
+
+.common-inner {
+    margin: 0 auto;
+    max-width: 720px;
+}
+
+.dimmed-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(#000, 0.8);
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease; 
+    &.hidden { 
+        opacity: 0; 
+    } 
+    &.light {
+        background-color: rgba(0,0,0,0.4);
+    }
+}
+
+.badge-popular {
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 700;
+    background-color: #ff61a7;
+    color: #fff;
+}

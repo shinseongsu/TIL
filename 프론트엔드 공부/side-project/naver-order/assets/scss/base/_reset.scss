@@ -1,0 +1,122 @@
+body {
+    min-width: 320px;
+    line-height: normal;
+    font-size: 14px;
+    color: $booking-color-text1;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+input,
+textarea,
+select,
+table,
+button,
+code {
+    font-family: $font-default;
+    font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.hidden,
+[hidden] {
+    display: none !important;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+select,
+input,
+textarea,
+button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input:disabled {
+    background-color: rgba(255, 255, 255, 0);
+    cursor: not-allowed;
+}
+
+select {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    &::-ms-expand {
+        display: none;
+    }
+}
+
+input,
+textarea {
+    font-size: inherit;
+    border: 0;
+    &::placeholder {
+        /* Chrome, Safari, Firefox */
+        color: #c9c9c9;
+        opacity: 1;
+    }
+    &:-ms-input-placeholder {
+        /* IE, Edge */
+        color: #c9c9c9;
+        opacity: 1;
+    }
+    &[readonly],
+    &:disabled {
+        &::placeholder {
+            /* Chrome, Safari, Firefox */
+            color: rgba(#000, 0.2);
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            /* IE, Edge */
+            color: rgba(#000, 0.2);
+            opacity: 1;
+        }
+    }
+    &::-ms-clear,
+    &::-ms-reveal {
+        /* IE, Edge */
+        display: none;
+    }
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+}

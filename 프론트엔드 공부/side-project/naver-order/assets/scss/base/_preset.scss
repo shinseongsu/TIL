@@ -1,0 +1,35 @@
+.screen-out {
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+.scroll-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+body.scroll-off {
+    overflow: hidden;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
+// functional css
+.fw700 {
+    font-weight: 700;
+}
+
+.color-point {
+    color: $point-color;
+}

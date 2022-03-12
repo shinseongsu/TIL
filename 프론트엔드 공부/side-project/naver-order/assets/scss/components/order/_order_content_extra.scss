@@ -1,0 +1,188 @@
+.order-content-extra {
+    .orderer-info-area,
+    .place-map-area,
+    .agreement-area {
+        padding: 0 $m-padding 30px;
+        background-color: #fff;
+    }
+
+    .title {
+        padding-top: 30px;
+        font-size: 18px;
+        font-weight: 700;
+        color: $booking-color-text2;
+    }
+
+    .orderer-info-area {
+        .info-item {
+            margin-top: 20px;
+        }
+
+        .info-title {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: $booking-color-text2;
+            &::before {
+                content: '';
+                margin-right: 8px;
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background-color: #d5dadd;
+            }
+        }
+
+        .option-group {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            height: 45px;
+            .option-item {
+                flex: 1;
+            }
+        }
+
+        .input-radio {
+            position: absolute;
+            &:checked {
+                & + .input-radio-button {
+                    border-color: $green;
+                    background-color: $green;
+                    font-weight: 700;
+                    color: #fff
+                }
+            }
+        }
+
+        .input-radio-button {
+            display: block;
+            line-height: 45px;
+            border: 1px solid $booking-color-border110;
+            background-color: $booking-color-bg3;
+            font-size: 15px;
+            color: $booking-color-text5;
+            text-align: center;
+            &.need {
+                border-radius: 5px 0 0 5px;
+            }
+            &.no-need {
+                border-radius: 0 5px 5px 0;
+                border-left: 0;
+            }
+        }
+
+        .input-text {
+            display: block;
+            margin-top: 10px;
+            padding: 0 12px;
+            width: 100%;
+            height: 45px;
+            border: 1px solid $booking-color-border112;
+            background-color: $booking-color-bg2;
+            font-size: 15px;
+            color: $booking-color-text2;
+        }
+    }
+
+    .place-map-area {
+        margin-top: 2px;
+        padding-bottom: 0;
+
+        .map-area {
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: $booking-color-bg5;
+            overflow: hidden;
+        }
+
+        .place-address-box {
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        .place-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: $booking-color-text2;
+        }
+        
+        .place-address {
+            margin-top: 4px;
+            color: $booking-color-text4;
+        }
+
+        .place-address-detail {
+            margin-top: 8px;
+            color: #006f49;
+        }
+        
+        .img-map {
+            display: block;
+            width: 100%;
+            border-top: 1px solid #e9eef0;
+        }
+    }
+
+    .agreement-area {
+        .agreement-list {
+            margin-top: 10px;
+            border: 1px solid $booking-color-border112;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .agreement-item {
+            &:not(:first-child) {
+                border-top: 1px solid $booking-color-border2;
+            }
+            &.is-open {
+                .agreement-content {
+                    display: block;
+                }
+                .btn-toggle {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+
+        .agreement-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 12px;
+            height: 44px;
+            color: $booking-color-text2;
+            .txt {
+                font-size: 15px;
+            }
+            .btn-toggle {
+                width: 44px;
+                height: 100%;
+                transform: rotate(180deg);
+            }
+        }
+
+        .agreement-content {
+            display: none;
+            padding: 12px;
+            max-height: 194px;
+            border-top: 1px solid $booking-color-border2;
+            background-color: $booking-color-bg3;
+            font-size: 14px;
+            color: $booking-color-text4;
+            overflow-y: auto;
+        }
+
+        .agreement-info-txt {
+            margin-top: 14px;
+            padding-left: 8px;
+            border-left: 3px solid $booking-color-bg113;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.6;
+            letter-spacing: -0.45px;
+            color: $booking-color-text4;
+        }
+    }
+}

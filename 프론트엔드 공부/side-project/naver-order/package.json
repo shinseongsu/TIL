@@ -1,0 +1,16 @@
+{
+  "name": "naver-order",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "server": "json-server ./db.json --port 3000",
+    "front": "polymer serve"
+  },
+  "dependencies": {
+    "lit-element": "^3.2.0"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.0"
+  }
+}

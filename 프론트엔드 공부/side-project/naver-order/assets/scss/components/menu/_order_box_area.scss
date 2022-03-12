@@ -1,0 +1,68 @@
+.order-box-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: $order-box-area-height;
+    border-top: 1px solid $booking-color-border161;
+    box-shadow: 0 0 6px 4px rgba(0,0,0,0.03);
+    background-color: #fff;
+    z-index: 9100;
+
+    .common-inner {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px $m-padding;
+    }
+
+    .menu-name {
+        font-size: 15px;
+        color: $booking-color-text6;
+        @include ellipsis;
+    }
+
+    .menu-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: $point-color;
+        @include ellipsis;
+    }
+
+    .btn-order {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 128px;
+        height: 46px;
+        border-radius: 5px;
+        background-image: linear-gradient(to right, #01d760, #0ad18e);
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        color: #fff;
+    }
+
+    .icon {
+        position: relative;
+        margin-left: 6px;
+    }
+
+    .ico-cart {
+        width: 20px;
+        height: 20px;
+    }
+
+    .num {
+        position: absolute;
+        top: -5px;
+        right: -4px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        border-radius: 50%;
+        background-color: $point-color;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: center;
+        color: #fff;
+    }
+}
