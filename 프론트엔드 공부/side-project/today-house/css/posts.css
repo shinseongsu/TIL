@@ -1,0 +1,114 @@
+.posting-container {
+  width: calc(100% - 30px);
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 2rem auto 0 auto;
+}
+
+.category {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--item-title);
+  letter-spacing: -0.4px;
+  width: calc(100% - 30px);
+}
+
+.posting-container .posting-wrapper {
+  margin-bottom: 2rem;
+}
+
+.posting-container .posting-wrapper h2 {
+  margin: 40px 0 10px 0;
+  color: var(--item-title);
+  margin: 18px 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 24px;
+  word-wrap: break-word;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.posting-container .posting-wrapper span {
+  position: relative;
+  display: block;
+  margin: 8px 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--item-title);
+  z-index: 2;
+}
+
+.posting-container .posting-wrapper .details {
+  display: flex;
+}
+
+.posting-container .posting-wrapper .details span {
+  display: inline-block;
+  margin: 8px 0 0;
+  color: var(--badge-title);
+  font-size: 13px;
+  text-align: center;
+}
+
+.posting-container .posting-wrapper .details span:not(:last-child)::after {
+  content: ' · ';
+}
+
+.posting-container .posting-wrapper .posting-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.posting-container .posting-wrapper .posting-image-container img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.posting-container .posting-wrapper .profile-image-container {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  border-radius: 50%;
+  overflow: hidden;
+  vertical-align: -3px;
+}
+
+.posting-container .posting-wrapper .profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile-wrapper,
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticky-container {
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  overflow: visible;
+  bottom: 10px;
+  right: 6px;
+  z-index: 999;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticky-container .top-button {
+  border-radius: 50%;
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 12%);
+  height: 45px;
+}

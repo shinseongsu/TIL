@@ -1,0 +1,273 @@
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1d1d1f;
+  font-family: "Noto Sans KR,Apple SD Gothic Neo,맑은 고딕,Malgun Gothic,sans-serif";
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+html,
+body,
+div,
+span,
+img,
+ol,
+ul,
+li,
+article,
+aside,
+canvas,
+figure,
+figcaption,
+footer,
+header,
+nav,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-size: inherit;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  max-width: 425px;
+  margin: 0 auto;
+  height: 100%;
+  line-height: 1;
+  animation: fade-in 1s forwards;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+  letter-spacing: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+button {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  line-height: normal;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+nav.layout-navigation {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+}
+
+nav.layout-navigation .navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+nav.layout-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.icon {
+  width: 50px;
+  height: 22px;
+}
+
+.secondary-nav {
+  padding: 0 4px;
+}
+
+.secondary-nav ul.nav-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+  min-height: 40px;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.secondary-nav ul.nav-container li.nav-item {
+  margin: 6px 4px;
+  padding: 8px 4px 7px;
+  color: var(--item-title);
+  position: relative;
+}
+
+.secondary-nav ul.nav-container li.nav-item.active {
+  color: var(--today-house);
+}
+
+.secondary-nav ul.nav-container li.nav-item.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px -4px 0;
+  height: 2px;
+  background-color: var(--today-house);
+}
+
+.today-house-container {
+  margin-right: auto;
+  margin-left: auto;
+  width: calc(100% - 30px);
+  max-width: 100%;
+}
+
+.today-house-container .today-house-item-wrapper {
+  padding: 0.5rem 0;
+}
+
+.today-house-container .today-house-item-wrapper:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.today-house-container .today-house-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.today-house-container .today-house-header h1.title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.today-house-container .today-house-header a.more {
+  color: #ff7777;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.today-house-item-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 10px;
+  column-gap: 10px;
+  margin-top: 20px;
+}
+
+.today-house-item h2 {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 12px 0;
+}
+
+.today-house-item .today-house-item-image {
+  border-radius: 4px;
+  height: 111px;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  background-color: white;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: 2px 0px 12px rgba(0,0,0,0.2);
+  transition: transform 1s;
+  transform: translateX(-110%);
+}
+
+.side-bar a {
+  color: #1d1d1f;
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 75px;
+
+  transition: color 0.5s;
+}
+
+.side-bar a:hover {
+  color: var(--today-house);
+}
+
+.side-bar.open {
+  transform: translateX(0);
+}
+
+.side-bar-toggle {
+  cursor: pointer;
+}
+
+.back-drop {
+  display: none;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}

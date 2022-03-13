@@ -1,0 +1,138 @@
+.layout-navigation .navigation {
+  position: relative;
+  padding: 11px 15px;
+  height: 50px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--post-border);
+  font-size: 17px;
+  line-height: 27px;
+  font-weight: 700;
+}
+
+.layout-navigation .navigation .publish-button {
+  color: var(--today-house);
+  font-weight: 700;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.post-form .title-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.post-form input {
+  all: unset;
+  width: 100%;
+  padding: 1rem;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.post-form input::placeholder,
+.post-form textarea::placeholder {
+  font-weight: 400;
+  color: var(--post-border);
+}
+
+.post-form textarea {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  padding: 12px 15px;
+  border: none;
+}
+
+.post-form textarea:focus {
+  outline-color: var(--today-house);
+}
+
+
+.post-form .title-wrapper .word-count {
+  width: 80px;
+  font-size: 13px;
+  user-select: none;
+  color: var(--write-title);
+}
+
+.post-form .title-wrapper .word-count span {
+  color: inherit;
+}
+
+.post-form .cover-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f7f8fa;
+}
+
+.post-form .cover-image {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.post-form .cover-image-wrapper input[type='file'] {
+  all: unset;
+}
+
+.post-form .cover-image-wrapper .info-wrapper {
+  text-align: center;
+}
+
+.post-form .cover-image-wrapper .info-wrapper span {
+  display: block;
+  margin-bottom: 15px;
+  color: var(--write-title);
+}
+.post-form .cover-image-wrapper .info-wrapper .info-title {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.post-form .cover-image-wrapper .info-wrapper .info-content {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.file-upload-wrapper label, .file-re-upload-wrapper label {
+  padding: 1rem;
+  display: inline-block;
+  margin: 17px 0 0;
+  padding: 8px 22px;
+  background-color: var(--write-title);
+  color: var(--white);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-re-upload-wrapper {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  bottom: 12px;
+  right: 12px;
+}
+
+.go-back {
+  cursor: pointer;
+}

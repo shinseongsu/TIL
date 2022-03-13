@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/global-colors.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/write.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;400;700;900&display=swap"
+      rel="stylesheet"
+      preload
+    />
+    <title>오늘의 집</title>
+  </head>
+
+  <body>
+    <nav class="layout-navigation">
+      <div class="navigation">
+        <svg
+          class="icon go-back"
+          width="24"
+          height="24"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <path
+            d="M3.7 12.5h18.8v-1H3.7l7.8-7.8-.7-.7L2 11.7l.3.3-.3.3 8.8 8.7.7-.7-7.8-7.8z"
+            fill="#000"
+            fill-opacity=".7"
+            fill-rule="evenodd"
+          ></path>
+        </svg>
+
+        <div class="side-bar-toggle">글쓰기</div>
+
+        <button class="publish-button">발행</button>
+      </div>
+    </nav>
+
+    <form class="post-form">
+      <div class="cover-image-wrapper">
+        <img class="cover-image" alt="업로드된 커버 사진" />
+        <div class="file-re-upload-wrapper">
+          <label for="cover-image-re-upload">사진 다시 올리기</label>
+          <input
+            type="file"
+            class="file-upload"
+            id="cover-image-re-upload"
+            multiple
+            accept=".jpg, .png, .jpeg, tiff, .gif"
+            style="display: none"
+          />
+        </div>
+        <div class="info-wrapper">
+          <span class="info-title">커버 사진을 업로드해주세요.</span>
+          <span class="info-content"
+            >* 권장 사이즈: 1920 x 1080, 최소 1400 x 930 (3:2 비율)</span
+          >
+        </div>
+        <div class="file-upload-wrapper">
+          <label for="cover-image-upload">커버 사진 추가하기</label>
+          <input
+            type="file"
+            class="file-upload"
+            id="cover-image-upload"
+            multiple
+            accept=".jpg, .png, .jpeg, tiff, .gif"
+            style="display: none"
+          />
+        </div>
+      </div>
+
+      <div class="title-wrapper">
+        <input class="title-input" placeholder="제목을 입력해주세요." required />
+        <span class="word-count">
+          <span class="current-title-length">0</span> /
+          <span class="max-title-length">30</span>
+        </span>
+      </div>
+
+      <textarea class="content-input" placeholder="내용을 입력해주세요."></textarea>
+    </section>
+    <script src="./src/write.js" type="module"></script>
+  </body>
+</html>
