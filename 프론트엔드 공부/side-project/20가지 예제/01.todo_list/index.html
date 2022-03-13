@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>To do list</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <h2>TO DO LIST</h2>
+        <form class="todo_form">
+          <input
+            type="text"
+            class="todo_input"
+            placeholder="할 일을 입력해 주세요."
+            autofocus="true"
+          />
+          <button type="submit" class="todo_submit_button">
+            <i class="fas fa-plus"></i>
+          </button>
+        </form>
+      </div>
+      <div class="todos"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
