@@ -1,0 +1,12 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "server": "json-server ./db.json --port 3000"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "json-server": "^0.17.0"
+  }
+}
