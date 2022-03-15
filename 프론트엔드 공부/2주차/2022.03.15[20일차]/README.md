@@ -168,24 +168,25 @@ for (let i = 0; i < input.length; i++) {
 이러한 특징을 잡아내 다음과 같은 코드로 풀어냈다.
 
 ```js
-const fs = require('fs');
-const input = fs.readFileSync('./data.txt').toString();
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString();
 
 let num = Number(input);
 let count = 0;
 let total = 0;
 
-while(true) {
-    count++;
-    if(num - count > 0) num -= count;
-    else {
-        total = count + 1;
-        break;
-    }
+while (true) {
+  count++;
+  if (num - count > 0) num -= count;
+  else {
+    total = count + 1;
+    break;
+  }
 }
 
-count%2 == 0 ? console.log(`${num} / ${total-num}`) : console.log(`${total - num} / ${num}`);
-
+count % 2 == 0
+  ? console.log(`${num} / ${total - num}`)
+  : console.log(`${total - num} / ${num}`);
 ```
 
 ## 1792
@@ -195,11 +196,11 @@ count%2 == 0 ? console.log(`${num} / ${total-num}`) : console.log(`${total - num
 그렇게 만든 몫에서 1대를 더 팔면 그떄분터 흑자전환이므로 +1을 하여 값을 출력한다.
 
 ```js
-const fs = require('fs');
-const input = fs.readFileSync('./data.txt').toString().split(' ');
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString().split(" ");
 
 let data = input.map((e) => {
-    return Number(e);
+  return Number(e);
 });
 
 let BEP = data[0] / (data[2] - data[1]);
@@ -213,18 +214,18 @@ data[1] > data[2] ? console.log(-1) : console.log(parseInt(BEP) * 1);
 이러한 특성을 이용해 목표지점의 수에서 1을 빼고 6으로 나눈 수를 등차수열로 쫓아가 나눈 수가 이동한 수를 넘기면 출발지점인 1의 발판값인 1을 더해서 값을 출력한다.
 
 ```js
-const fs = require('fs');
-const input = fs.readFileSync('./data.txt').toString();
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString();
 
 let num = Number(input);
 let count = 0;
 
 // 이동한 횟수를 구한다.
-while(num > 0) {
-    count++;
-    num -= count;
+while (num > 0) {
+  count++;
+  num -= count;
 }
-console.log(count+1);
+console.log(count + 1);
 ```
 
 ## 2275
@@ -233,25 +234,24 @@ console.log(count+1);
 이말인 즉 자신의 같은층의 앞호수 + 자신의 바로 아래층 같은 호수의 값이 자신의 값이 된다.  
 이러한 특즹은 모든 층이 가리고 있으므로 재귀함수를 이용하여 값을 찾아낸다.
 
-
 ```js
-const fs = require('fs');
-const input = fs.readFileSync('./data.txt').toString().split('\n');
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString().split("\n");
 
 const T = Number(input.shift());
 
 function peoples(l, r) {
-    if( i ==  0 || r == 1) {
-        return r;
-    } else {
-        return peoples(l-1, r) + peoples(1, r-1);
-    }
+  if (i == 0 || r == 1) {
+    return r;
+  } else {
+    return peoples(l - 1, r) + peoples(1, r - 1);
+  }
 }
 
-for(let i = 0 ; i < T ; i++) {
-    let level = Number(inpuit.shift());
-    let room = Number(input.shift());
-    console.log(peoples(level, room));
+for (let i = 0; i < T; i++) {
+  let level = Number(inpuit.shift());
+  let room = Number(input.shift());
+  console.log(peoples(level, room));
 }
 ```
 
@@ -259,4 +259,85 @@ for(let i = 0 ; i < T ; i++) {
 
 5로 보다 작고 3으로 나눌수 없는 수의 경우 바로 -1을 출력한다.  
 그 외의 경우 5kg포대의 수를 줄여가며 3kg으로ㅓ 값을 나누어 보면 무한 루프다.  
-5kg 포대를 줄여가며 3kg 포대로 모든 설탕을 포장했다면 5kg와 3kg 포대의 수를 더해 출력하고 그렇지 않아 5kg 포대의 수가 -1로 갈 경우 -1을 출력하고 break 하여 반복문
+5kg 포대를 줄여가며 3kg 포대로 모든 설탕을 포장했다면 5kg와 3kg 포대의 수를 더해 출력하고 그렇지 않아 5kg 포대의 수가 -1로 갈 경우 -1을 출력하고 break 하여 반복문을 탈출한다.
+
+```js
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString();
+
+let kg = Number(input);
+
+let five = parseInt(kg / 5);
+let last = kg % 5;
+
+if (last % 3 == 0) console.log(five + last / 3);
+else if (five == 0) console.log(-1);
+else {
+  while (true) {
+    five--;
+    last += 5;
+    if (five == -1) {
+      console.log(-1);
+      break;
+    } else if (last % 3 == 0) {
+      console.log(five + last / 3);
+      break;
+    }
+  }
+}
+```
+
+## 2869
+
+달팽이는 마지막 순간에 정상에 닿으면 더이상 떨어지지 않으므로 목표높이 - 잠자기전 이동거리를 하여 남은거리를 측정한다.  
+이렇게 측정된 높이를 잠자며 올라가는 거리로 나누어 나오는 값을 올림처리하여 반환한뒤, 이 값에 마지막 낮의 날짜인 1을 더해 출력한다.
+
+```js
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString().split(" ");
+
+let data = input.map((x) => Number(x));
+let day = 1;
+
+day += Math.ceil((data[2] - data[0]) / *data[0] - data[1]);
+console.log(day);
+```
+
+## 10250
+
+이 문제는 모든 고객이 높이를 먼저 우선한 뒤 넓이를 차지하므로 높이를 이용하여 층수와 호수를 찾아낸다.  
+높이값은 고객번호를 층값으로 나눈 나머지로 구하고, 나눈 몫을 올림하여 고객의 호수를 찾아낸다.  
+단 호수와 층수가 String형태로 붙어야 하므로 출력시 빈 문자열을 앞에 붙여 출력해야 한다.
+
+```js
+const fs = require("fs");
+const input = fs.readFileSync("./data.txt").toString().split("\n");
+
+let T = Number(input.shift());
+label = 0;
+
+for (let i = 0; i < T; i++) {
+  let data = input[i].split(" ");
+  data = data.map((x) => Number(x));
+
+  let client = data[2];
+  let height = data[0];
+  let Y = client % height ? client % height : height;
+  let X = Math.ceil(client / height);
+
+  if (x < 10) X = "0" + X;
+  console.log("" + Y + X);
+}
+```
+
+## 10757
+
+값이 매우 크므로 BigInt를 사용해 값을 구한 뒤 toString() 하여 문자열로 바꾸면 BigInt의 n이 사라져 출력된다.
+
+```js
+const fs = require('fs');
+const input = fs.readFileSync('./data.txt').toString().split(' ');
+
+let num (BigInt(input[0]) + BigInt(input[1])).toString();
+console.log(num);
+```
