@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>너튜브</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <main>
+      <h1>너튜브</h1>
+      <section>
+        <h2 class="blind">너튜브 콘텐츠</h2>
+        <div class="search_bar">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="검색"
+            autocomplete="off"
+          />
+          <label for="search">
+            <a href="#none" class="btn_search">
+              <svg
+                viewBox="0 0 24 24"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+                class="ico-zoom"
+              >
+                <path
+                  d="M20.87,20.17l-5.59-5.59C16.35,13.35,17,11.75,17,10c0-3.87-3.13-7-7-7s-7,3.13-7,7s3.13,7,7,7c1.75,0,3.35-0.65,4.58-1.71 l5.59,5.59L20.87,20.17z M10,16c-3.31,0-6-2.69-6-6s2.69-6,6-6s6,2.69,6,6S13.31,16,10,16z"
+                ></path>
+              </svg>
+            </a>
+          </label>
+        </div>
+        <div class="contents list">
+          <figure>
+            <a href="#none" class="btn_view">
+              <picture>
+                <source srcset="./assets/sample.jpg" type="image/webp" />
+                <source srcset="./assets/sample.jpg" type="image/jpg" />
+                <img src="./assets/sample.jpg" alt="sample" />
+              </picture>
+            </a>
+            <figcaption>
+              <i><img src="./assets/id.png" alt="icon" /></i>
+              <span class="description"
+                ><strong>Lorem Ipsum Powerful movie</strong>
+                <em>Cold Water</em>
+                <span>1.1M views, 4 months ago</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="#none" class="btn_view">
+              <picture>
+                <source srcset="./assets/sample.jpg" type="image/webp" />
+                <source srcset="./assets/sample.jpg" type="image/jpg" />
+                <img src="./assets/sample.jpg" alt="sample" />
+              </picture>
+            </a>
+            <figcaption>
+              <i><img src="./assets/id.png" alt="icon" /></i>
+              <span class="description"
+                ><strong
+                  >No need any of chance. you can see me the smile of black
+                  yard</strong
+                >
+                <em>Man Power</em>
+                <span>1.1M views, 4 months ago</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="#none" class="btn_view">
+              <picture>
+                <source srcset="./assets/sample.jpg" type="image/webp" />
+                <source srcset="./assets/sample.jpg" type="image/jpg" />
+                <img src="./assets/sample.jpg" alt="sample" />
+              </picture>
+            </a>
+            <figcaption>
+              <i><img src="./assets/id.png" alt="icon" /></i>
+              <span class="description"
+                ><strong
+                  >Christmas on Carol to sing a song 'Jingle Bell'</strong
+                >
+                <em>Tigger</em>
+                <span>437 watching</span>
+                <span class="stream">LIVE NOW</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="#none" class="btn_view">
+              <picture>
+                <source srcset="./assets/sample.jpg" type="image/webp" />
+                <source srcset="./assets/sample.jpg" type="image/jpg" />
+                <img src="./assets/sample.jpg" alt="sample" />
+              </picture>
+            </a>
+            <figcaption>
+              <i><img src="./assets/id.png" alt="icon" /></i>
+              <span class="description"
+                ><strong>Don't dwell on the past.</strong>
+                <em>Cold Water</em>
+                <span>1.2K views, 2 years ago</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="#none" class="btn_view">
+              <picture>
+                <source srcset="./assets/sample.jpg" type="image/webp" />
+                <source srcset="./assets/sample.jpg" type="image/jpg" />
+                <img src="./assets/sample.jpg" alt="sample" />
+              </picture>
+            </a>
+            <figcaption>
+              <i><img src="./assets/id.png" alt="icon" /></i>
+              <span class="description"
+                ><strong>Foolow your heart</strong>
+                <em>Creator</em>
+                <span>18 views, 3 minutes ago</span>
+              </span>
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="#none" class="btn_view">
+              <picture>
+                <source srcset="./assets/sample.jpg" type="image/webp" />
+                <source srcset="./assets/sample.jpg" type="image/jpg" />
+                <img src="./assets/sample.jpg" alt="sample" />
+              </picture>
+            </a>
+            <figcaption>
+              <i><img src="./assets/id.png" alt="icon" /></i>
+              <span class="description"
+                ><strong>Seize the day</strong>
+                <em>Good will Hunting</em>
+                <span>3.8M views, 18 days ago</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="contents view">
+          <figure>
+            <video autoplay>
+              <source src="./assets/sample.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              <span class="description"
+                ><strong
+                  >The harder you work, the more likely you can reach the
+                  goal</strong
+                >
+              </span>
+            </figcaption>
+            <span class="controls">
+              <progress
+                min="0"
+                max="100"
+                value="0"
+                class="js-progress"
+              ></progress>
+              <button type="button" class="js-replay">Replay</button>
+              <button type="button" class="js-play">Play</button>
+              <button type="button" class="js-stop">Stop</button>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.1"
+                value="1"
+                class="js-volume"
+              />
+              <button type="button" class="js-mute">Mute</button>
+              <button type="button" class="js-fullScreen" accesskey="T">
+                FullScreen
+              </button>
+            </span>
+          </figure>
+        </div>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>

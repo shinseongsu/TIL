@@ -1,0 +1,308 @@
+@charset "utf-8";
+
+.blind {
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  height: calc(100vh - 150px);
+  border: 1px solid #dedede;
+  padding: 30px;
+  background: #212121;
+}
+
+.search_bar {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  height: 40px;
+  max-width: 100%;
+}
+
+.search_bar input {
+  width: calc(100% - 64px);
+  height: 100%;
+  padding: 0 10px;
+  border: 1px solid #303030;
+  background-color: #121212;
+  caret-color: #fff;
+  font-size: 16px;
+  color: #fff;
+}
+
+.search_bar input::-webkit-input-placeholder {
+  color: #888;
+}
+
+.search_bar input:-ms-input-placeholder {
+  color: #888;
+}
+
+.search_bar input::-ms-input-placeholder {
+  color: #888;
+}
+
+.search_bar input::placeholder {
+  color: #888;
+}
+
+.search_bar input:focus {
+  border-color: #2f62b3;
+  outline: none;
+}
+
+.search_bar label {
+  display: block;
+  width: 64px;
+  height: 100%;
+}
+
+.search_bar label .btn_search {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  border: none;
+  background: #303030;
+  cursor: pointer;
+}
+
+.search_bar label .btn_search:hover {
+  background-color: #444;
+}
+
+.search_bar label .btn_search svg {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.search_bar label .btn_search svg path {
+  fill: #fff;
+}
+
+.contents {
+  display: none;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  padding: 3%;
+  background: #181818;
+  border: 1px solid #383838;
+  overflow-y: auto;
+}
+
+.contents.list {
+  display: flex;
+}
+
+.contents.view figure {
+  flex: 0 0 50%;
+  margin: 0;
+}
+
+.contents.view figure video {
+  width: 100%;
+}
+
+.contents figure {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 0 0 23%;
+  margin: 1%;
+}
+
+.contents figure .btn_view {
+  flex: none;
+  width: 100%;
+  position: relative;
+}
+
+.contents figure .btn_view.focus-visible {
+  -webkit-filter: brightness(1.2);
+  filter: brightness(1.2);
+}
+
+.contents figure .btn_view::before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.contents figure picture {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  transition: -webkit-filter 0.3s;
+  transition: filter 0.3s;
+  transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.contents figure picture:hover,
+.contents figure picture:active,
+.contents figure picture:focus {
+  -webkit-filter: brightness(1.2);
+  filter: brightness(1.2);
+}
+
+.contents figcaption {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 5px 40px;
+  cursor: pointer;
+}
+
+.contents figcaption i {
+  flex-shrink: 0;
+  display: block;
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.contents figcaption .description {
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  color: #aaa;
+  transition: color 0.3s;
+}
+
+.contents figcaption .description:hover,
+.contents figcaption .description:active,
+.contents figcaption .description:focus {
+  color: #fff;
+}
+
+.contents figcaption .description strong {
+  width: 100%;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.contents figcaption .description em {
+  display: block;
+  font-style: normal;
+  line-height: 2;
+}
+
+.contents figcaption .description .stream {
+  display: block;
+  width: 65px;
+  margin-top: 8px;
+  padding: 3px;
+  border-radius: 2px;
+  border: 1px solid #ff4e45;
+  color: #ff4e45;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+}
+
+.controls button {
+  background: #2f62b3;
+  border: 0;
+  color: #fff;
+  margin: 0 5px;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: #2d6bcd;
+}
+
+.controls .js-progress {
+  width: 100%;
+  border-radius: 0;
+}
+
+.controls .js-progress::-webkit-progress-bar {
+  background-color: #fff;
+}
+
+.controls .js-progress::-webkit-progress-value {
+  background: #2d6bcd;
+}
+
+.controls .js-volume::-webkit-slider-runnable-track {
+  background-color: #fff;
+}
+
+.controls .js-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #2d6bcd;
+  width: 15px;
+  height: 15px;
+}
+
+@media (max-width: 1024px) {
+  .contents figure {
+    flex: 0 0 31.333%;
+  }
+  .contents.view figure {
+    flex: 0 0 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .contents figure {
+    flex: 0 0 48%;
+  }
+}
+
+@media (max-width: 480px) {
+  .contents figure {
+    flex: 0 0 100%;
+    margin: 0;
+  }
+}
