@@ -23,7 +23,7 @@ public class Point {
     }
 
     boolean isLeft() {
-        return direction == Direction.LETT;
+        return direction == Direction.LEFT;
     }
 
     PointDto exportPointDto() {

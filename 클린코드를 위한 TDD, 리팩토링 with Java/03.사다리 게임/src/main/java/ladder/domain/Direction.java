@@ -1,7 +1,7 @@
 package ladder.domain;
 
 public enum Direction {
-    LETT(-1),
+    LEFT(-1),
     DOWN(0),
     RIGHT(1);
 

@@ -7,7 +7,7 @@ public abstract class DirectionStrategy {
 
     Direction get(boolean isDown) {
         boolean isLeft = prevDirection == Direction.RIGHT;
-        Direction direction = isLeft ? Direction.LETT :
+        Direction direction = isLeft ? Direction.LEFT :
                 isDown ? Direction.DOWN : Direction.RIGHT;
         prevDirection = direction;
         return direction;
