@@ -372,3 +372,169 @@ product = Product(...)
 carts = get_added_cart(product)
 
 ```
+
+## 클래스
+
+**단일 책임 원칙(SRP)**
+
+하나의 클래스는 하나의 책임만 가지도록 합니다.
+
+- as-is
+
+```python
+# store가 많은 역활을 혼자서 수행합니다.
+class Store:
+    def communicate_user():
+        ...
+
+    def manage_products():
+        ...
+
+    def manage_money():
+        ...
+
+```
+
+- to-be
+
+```python
+# 책임을 나눠서 Manager 클래스에게 책임을 전가합니다.
+class CounterManager:
+    def communicate_user():
+        ...
+
+class ProductManager:
+    def manage_money():
+        ...
+
+
+class Store:
+    def __init__(counter_manger: CounterManager, product_manager: ProductManager, owner: Owner):
+        self.counter_manager = counter_manager
+        self.product_manager = product_manager
+        self.owner = owner
+
+    def sell_product():
+        self.counter_manager.communicate_user()
+        ...
+
+    def manage_products():
+        ...
+
+```
+
+**응집도를 높이자.**
+
+- 응집도는 클래스의 변수와 메서들이 얼마나 유기적으로 엮여있나를 나타내는 지표입니다.
+
+  - 응집도가 높을수록 클래스의 메소드들은 인스턴스 변수들을 많이 사용합니다.
+  - 응집도가 낮을 수록 클래스의 메서드들은 변수들을 적게 혹은 사용하지 않습니다.
+
+- as-is
+
+```python
+class LowcCohesion:
+    def __init__(self):
+        self.a = ...
+        self.b = ...
+        self.c = ...
+
+    def process_a(self):
+        print(self.a)
+
+    def process_b(self):
+        print(self.b)
+
+    def process_c(self):
+        print(self.c)
+```
+
+- to-be
+
+```python
+class HighCohesion:
+    def __init__(self):
+        self.abc = ...
+
+    def process_a(self):
+        self.abc.process_a()
+
+    def process_b(self):
+        self.abc.process_b()
+
+    def process_c(self):
+        self.abc.process_c()
+```
+
+**변경하기 쉽게 만들자**
+
+새 기능을 수정하거나 기존 기능을 변경할 때, 코드의 변경을 최소화하는 게 중요합니다.
+
+일반적으로 클래스(객체)는 구현(Concrete)와 추상(Abstract)으로 나뉘게 됩니다. 구현에는 실제 동작하는 구체적인 코드가, 추상은 인터페이스나 추상 클래스처럼 기능을 개념화한 코드가 들어갑니다.
+
+일반적으로 변경하기 쉽게 위해선 추상화를 해두고 구체 클래스에 의존하지 않고 추상 클래스(인터페이스)에 의존하도록 코드를 짜는 것이 중요합니다.
+
+- as-is
+
+```python
+class Developer:
+    def coding(self):
+        print("코딩을 합니다")
+
+class Designer:
+    def design(self):
+        print("디자인을 합니다")
+
+class Analyst:
+    def analyze(self):
+        print("분석을 합니다")
+
+class Company:
+    def __init__(self, employees):
+        self.employese = employese
+
+    # employee가 다양해 질수록 코드를 계속 변경해야 한다.
+    def make_work(self):
+        for employee in self.employees
+            if type(employee) == Developer:
+                employee.coding()
+            elif type(employee) == Designer:
+                employee.design()
+            elif type(employee) == Analyst:
+                employee.analyze()
+```
+
+- to-be
+
+```python
+class Employee(metaclass=abc.ABCMeta):
+    def work(self):
+        ...
+
+class Developer(Employee):
+    def work(self):
+        print("코딩을 합니다")
+
+class Designer(Employee):
+    def work(self):
+        print("디자인을 합니다")
+
+class Analyst(Employee):
+    def work(self):
+        print("분석을 합니다")
+
+# 상속을 통해 쉽게 구현이 가능함 -> 확장이 열려있다.
+class Manager(Employee):
+    def work(self):
+        print("매니징을 합니다")
+
+
+class Company:
+    def __init__(self, employees: List(Employee)):
+        self.employees = employee
+
+    # employee가 늘더라도 변경에는 닫혀있다.
+    def make_work(self):
+        for employee in self.employees:
+            employee.work()
+```
