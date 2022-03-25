@@ -14,7 +14,7 @@ kebab-case: HTML Element를 표현할 떄 사용함.
 
 ## 변수와 상수
 
-일반적으로 변수와 상수를 네이밍할 때는 명사 혹은 형용사 구문 형태로 짓습니다. 
+일반적으로 변수와 상수를 네이밍할 때는 명사 혹은 형용사 구문 형태로 짓습니다.
 
 ```
 user_data = ... #명사
@@ -30,7 +30,7 @@ def send_data():
     ...
 
 def import_is_valid():
-    ...    
+    ...
 ```
 
 ## 클래스
@@ -42,7 +42,7 @@ class Client:
     ...
 
 class RequestBody:
-    ...    
+    ...
 ```
 
 ## Tips
@@ -76,7 +76,6 @@ name = "grab"
 ```
 
 > 길다고 나쁜 게 아닙니다. 짧고 애매한 표현보다 길고 직관적인 표현이 낫습니다.
-
 
 # 클린 코드 - 주석, 포맷팅
 
@@ -119,13 +118,13 @@ def connect_api_server():
 
 ## 관용적으로 사용되는 키워드
 
-`TODO`: 당장은 아니지만 다음에 해야 할 때  
+`TODO`: 당장은 아니지만 다음에 해야 할 때
 
 `FIXME`: 치명적인 에러를 발생하는 코드는 아니지만 수정해야 할때
 
 `XXX`: 더 생각해볼 필요가 있을 때
 
-```python 
+```python
 # TODO@grab: 객체의 책임 더 분리하기
 class GrabStore:
     ...
@@ -148,7 +147,7 @@ class GrabStore:
 class FruitsStore:
     ...
 
-class ComputerStore:    
+class ComputerStore:
     ...
 
 
@@ -159,7 +158,7 @@ class FruitsStore:
 
 # computer_store.py
 class ComputerStore:
-    ...    
+    ...
 ```
 
 - 다른 개념의 코드는 Spacing으로 분리하기
@@ -192,10 +191,184 @@ product_list.extend(items)
 
 - 네이밍 잘해서 길이 줄이기
 
-```python 
+```python
 # as-is
 user_with_name_and_email = User("그랩", "grab@world.com")
 
 # to-be
 user = User("그랩", "grab@wrold.com")
+```
+
+## 함수
+
+**함수의 역활은 하나만 할 수 있도록 하자 (SRP)**
+
+함수의 역활이 많아진다면, 오류가 날 가능성이 커지고 가능성이 떨어집니다. 또한 함수에 대한 테스트를 진행하기가 어렵습니다.
+
+- as-is
+
+```python
+def create_user(email. password):
+    # validation 로직
+    if "@" not in email or len(password) < 6:
+        raise Exception("유지 정보를 제대로 입력하세요")
+
+    user = {"email": email, "password": password}
+
+    database = Database("mysql")
+    database.add(user)
+
+    email_client = EmailClient()
+    email_client.set_config(...)
+    email_client.send(email, "회원가입을 축하합니다.")
+
+    return True
+```
+
+- to-be
+
+```python
+def create_use(email, password):
+    validate_create_user(email, password)
+
+    user = build_user(email, password)
+
+    save_user(user)
+    sned_email(email)
+
+    return
+
+
+def validate_create_user(email, password):
+    if "@" not in email or len(password) < 6:
+        raise Exception("유저 정보를 제대로 입력하세요")
+
+
+def build_user(email, password):
+    return {
+        "email": email,
+        "password": password
+    }
+
+def save_user(user):
+    database = Database("mysql")
+    database.add(user)
+
+
+def send_email(email):
+    email_client = EmailClinet()
+    email_clinet.set_config(...)
+    email_client.send(email, "회원가입을 축하합니다")
+
+```
+
+**반복하지 말자 (DRY)**
+
+관심사를 잘 분리하고 의존성을 줄이기 위해 반복되는 코드를 하나의 함수로 만들어 사용합니다.
+
+- as-is
+
+```python
+def create_user(email, password):
+    # validation 로직
+    if "@" not in email or len(password) < 6:
+        raise Exception("유저 정보를 제대로 입력하세요")
+
+     ...
+
+def update_user(emmail, password):
+    # validation 로직
+    if "@" not in email or len(password) < 6:
+        raise Exception("유저 정보를 제대로 입력하세요")
+```
+
+- to-be
+
+```python
+def validate_create_user(email, password):
+    if "@" not in email or len(password) < 6:
+        raise Exception("유저 정보를 제대로 입력하세요")
+
+
+def create_user(email, password):
+    validate_create_user(email, password)
+    ...
+
+
+def update_user(email, password):
+    validate_create_user(email, password)
+    ...
+```
+
+**파라미터 수는 적게 유지하기**
+
+```python
+# as-is
+def save_user(user_name, email, password, created_at):
+
+# to-bw
+def save_user(user:User):
+
+```
+
+**사이드 이펙트를 잘 핸들링 하자**
+
+사이드 이펙트(Side Effect)는 함수가 실행됐을 때 함수 이외의 어떤 것들에 변화를 주는 것을 뜻합니다. 사이드 이펙트를 잘 다루지 못하면, 예측하지 못하는 문제들이 발생할 수 있습니다.
+
+```python
+# 사이드 이펙트가 없습니다.
+def get_user_instance(email, password):
+    user = User(email, password)
+    return user
+
+# 사이드 이펙트가 있습니다.
+def update_user_instance(user):
+    user.email = "new email"  # 인자로 받은 user 객체를 업데이트합니다.
+    ...
+
+# 사이드 이펙트가 있습니다.
+def create_user(email, password):
+    user = User(email, password)
+    start_db_session() # 외부의 DB session에 변화를 줄 수 있습니다.
+    ...
+
+```
+
+- 잘 핸들링 하는 방법
+
+1. 코드를 통해 충분히 예측할 수 있도록 네이밍을 잘하는 것이 중요합니다.
+
+   - update, set 같은 직관적인 prefix를 붙여서 사이드 이펙트가 있을 수 있음을 암시합니다.
+
+2. 함수의 사이드 이펙트가 있는 부분과 없는 부분으로 잘 나눠서 관리합니다.
+
+   - 명령(side effect O)과 조회(side effect X)를 분리하는 `CQRS` 방식이 있습니다.
+
+3. 일반적으로 update를 남발하기 보단 순수 함수 형태로 사용하는 것이 더 직관적이고 에러를 방지할 수 있습니다.
+
+- as-is
+
+```python
+carts = []
+
+# 사이드 이펙트를 발생시킴
+def add_cart(product):
+    carts.append(product)
+
+product = Product(...)
+add_cart(product)
+```
+
+- to-be
+
+```python
+carts = []
+
+# 사이드 이펙트가 없는 순수 함수
+def get_added_cart(product):
+    return [...carts, product]
+
+product = Product(...)
+carts = get_added_cart(product)
+
 ```
