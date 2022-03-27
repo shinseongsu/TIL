@@ -538,3 +538,294 @@ class Company:
         for employee in self.employees:
             employee.work()
 ```
+
+
+## 에러 핸들링
+
+**오류 코드보다는 예외 사용하기**
+
+오류 코드를 사용하게 되면 상단에 오류인지 확인하는 불필요한 로직이 들어가게 됩니다. 오류의 범주에 들어가지 않은 상태를 나타내는 것이 아니라면, 예외(Exception)로 명시적으로 에러 처리를 표현 해주는게 좋습니다.
+
+- as-is
+
+```python
+from enum import Enum
+
+class ErrorCodes(Enum):
+    VALUE_ERROR="VALUE_ERROR"
+
+def we_can_raise_error():
+    ...
+    return ERROR_CODES.VALUES_ERROR
+
+def use_ugly_function():
+    result = we_can_occur_error()
+    if result == ErrorCodes.VALUE_ERROR:
+        # 처리코드
+    ...        
+```
+
+- to-be
+
+```python
+def we_can_raise_error():
+    if ...
+        raise ValueError("에러발생")
+
+def use_awesome_function():
+    try:
+        we_can_occur_error()
+        ...
+    except ValueError as e:
+        # 에러 처리 로직        
+```
+
+**예외 클래스 잘 정의하기**
+
+- 기본 Exception만 쓰기 보단 내장된 built in Exception을 잘 활용하면 좋습니다.
+
+- 상황에 맞게 Custom Exception을 만들어 사용하는 것도 좋습니다.
+
+```python
+class CustomException(Exception):
+    ...
+
+class WithParameterCutomException(Exception):
+    def __init__(self, msg, kwargs):
+        self.msg = msg
+        self.kwargs = kwargs
+
+    def __str__():
+        return f"messag {self.msg} with parameter {self(self.kwargs)}"
+
+raise WithParameterCustomException("문제가 있습니다", {"name": "grab"})            
+```
+
+**에러 핸들링 잘하기**
+
+- 에러를 포착한다면 잘 핸들링해줘야 한다.
+
+```python
+def we_can_raise_error():
+    ...
+    raise Exception("Error!")
+
+# BAD: 에러가 났는지 확인 할 수 없게 됩니다.
+def use_ugly_function():
+    try:
+        we_can_raise_error()
+        ...
+    except:
+        pass
+
+# BAD: 로그만 남긴다고 끝이 아닙니다.
+def use_ugly_function2():
+    try:
+        we_can_raise_error()
+        ...
+    except Exception as e:
+        print(f"에러 발생{e}")        
+
+# GOOD
+def use_awesome_function():
+    try:
+        we_can_raise_error()
+        ...
+    except Exception as e:
+        logging.error(...) # Error Log 남기긱
+        notify_error(...) # 에측 불가능한 외부 I/O 이슈라면 회사 내 채널에 알리기(이메일, 슬랙 etc)
+        raise OtherException(e)
+    finally:
+        ... # 에러가 발생하더라도 항상 실행되어야 하는 로직이 있다면 finally 문을 넣어주기
+```
+
+- 에러 핸들링을 모을 수 있으면 한곳으로 모읍니다. 보통 같은 수준의 로직을 처리한다면 한 곳으로 모아서 처리하는게 더 에러를 포착하기 쉽습니다.
+
+- as-is
+  
+```python
+def act_1():
+    try:
+        we_can_raise_error1()
+        ...
+    except:
+        # handling
+    
+def act_2():
+    try:
+        we_can_raise_error2()
+        ...
+    except:
+        # handling
+
+def act_3():
+    try:
+        we_can_raise_error3()
+        ...
+    except:
+        # handling
+
+# 에러가 날 지점을 한눈에 확인 할 수 없습니다.
+# act_1이 실패하면 act_2가 실행되면 안 된다면? 핸들링하기 어려워집니다.
+def main():
+    act_1()
+    act_2()
+    act_3()                
+```
+
+- to-be
+
+```python
+def act_1():
+    we_can_raise_error1()
+    ...
+
+def act_2():
+    we_can_raise_error2()
+    ...
+
+def act_3():
+    we_can_raise_error3()
+    ...
+
+# 직관적이며 에러가 날 지점을 확인하고 처리할 수 있습니다.
+# 트랜잭션 같이 한 단위로 묶어야하는 처리에도 유용합니다.
+def main():
+    try:
+        act_1()
+        act_2()
+        act_3()
+    except SomeException1 as e1:
+        ...
+    except SomeException2 as e2:
+        ...
+    except SomeException3 as e3:
+        ...
+    finally:
+        ...    
+```
+
+## 코드 indent 줄이기 (Guard Clausing, Polymorphism)
+
+if-else 조건문을 많이 사용하게 되면 코드 라인이 길어지고 indent가 많아져 가독성이 떨어지는 문제가 발생합니다.  
+이때, Guard Clausing 과 Polymorshism(다형성)을 사용하면 코드를 클린하게 짤 수 있습니다.
+
+**Guard clause**
+
+일반적으로 if-else문이 중첩(nested)될수록 코드는 복잡해지고 보기 지저분해집니다.
+
+```python
+# BAD
+if:
+    ...
+    if:
+        ...
+        if:
+            ...
+            while:
+            ...
+...
+```
+
+nested 코드를 줄이고 가독성을 높이기 위해선, 코드 상단에 fail이 되는 로직을 위로 넣어두는 것이 좋습니다.
+
+
+- as-is
+
+```python
+def say_hi_spring_user(developer):
+    if developer.is_front-end:
+        raise Exception("you are front engineer!")
+    elif developer.is_back_end:
+        if developer.likes_python:
+            raise Exception("you user pyhon!")
+        elif developer.likes_java:
+            if developer.use_spring:
+                return "hello! spring User"
+            else:
+                raise("you use other java framework!")
+    raise Exception("who are you?")
+```
+
+- to-be
+
+```python
+# Fail이 되는 부분을 상위로 올리면 코드를 더 쉽게 읽을 수 있습니다.
+def say_hi_to_spring_user(developer):
+    if not developer.is_backend:
+        raise Exception("you are not backend engineer!")
+
+    if not developer.likes_java:
+        raise Exception("you don't like java TT")
+
+    if not developer.use_spring:
+        raise Exception("you don't use spring!")
+
+    return "hello! spring user"
+```
+
+**Polymorphism(다형성)**
+
+객체지향의 꽃이라고 불리는 다형성을 활용하여 if-condition을 줄일 수 있습니다.
+
+- as-is
+
+```python
+class Developer:
+    def coding(self):
+        print("코딩을 합니다")
+
+class Designer:
+    def design(self):
+        print("디자인을 합니다")
+
+class Analyst:
+    def analyze(self):
+        print("분석을 합니다")
+
+class Company:
+    def __init__(self, employees):
+        self.employees = employees
+
+    def make_work(self):
+        for employee in self.employees:
+            if type(employee) == Developer:
+                employee.coding()
+            elif type(employee) == Designer:
+                employee.design()
+            elif type(employee) == Analyst:
+                employee.analyze()
+```
+
+- to-be
+
+```python
+# Employee로 추상화해둡니다.
+class Employee(metaclass=abc.ABCMeta):
+    @abc.abstractmethd
+    def work(self):
+        ...
+
+class Developer(Employee):
+    def work(self):
+        print("코딩을 합니다")
+
+class Designer(Employee):
+    def work(self):
+        print("디자인을 합니다")
+
+class Analyst(Employee):
+    def work(self):
+        print("분석을 합니다")
+
+class Company:
+    def __init__(self, emplyees: List[Employee]):
+        self.emplyees = employees
+
+    # if문을 사용하지 않고 다형성을 통해서 이를 해결합니다.
+    def make_work(self):
+        for employee in self.employees:
+            employee.work()
+```
+
+
