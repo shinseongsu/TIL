@@ -174,3 +174,150 @@ class User:
         self.car.accelerate()
 ```
 
+## 다형성
+
+이제 사람은 다음처럼 상황에 따라 운전하고 싶은 차량을 설정할 수 있습니다.
+
+```python
+# 모닝 차량을 운전하고 싶을 때
+user = User(MorningCar())
+user.drive()
+
+# 포르쉐 차량을 운전하고 싶을 때
+user = User(PorscheCar())
+user.drive()
+```
+
+현재 User는 생성자에서 추상 클래스인 Car를 의존하고 있지만, 실제로 이 User를 사용하는 클라이언트에서는 Car가 아니라 Car의 자식 클래스인 MorningCar 와 PorscheCar 객체를 생성자에서 파라미터로 넘겨줄 수 있습니다.
+
+이처럼 User 입장에서 Car 가 상황에 따라 그 형태가 달라질 수 있는데, 이런 특성을 `타형성(polymorphism)` 이라고 합니다. 또한 이렇게 외부에서 실제로 의존하는 객체를 만들어 넘겨주는 패턴을 `의존성 주입(dependency)` 이라고 부릅니다.
+
+다형성은 객체지향의 꽃이라고 불릴 만큼 중요한 특성입니다. 추상 클래스 혹은 인터페이스로 객체를 상위 타입으로 추상화하고(위 예시에서는 "차"가 바로 이런 상위타입), 그 객체의 하위 타입들(모닝, 포르쉐 등)은 이러한 상위 타입의 추상클래스나 인터페이스를 구현하도록하면, 코드 설계가 전반적으로 유연해져 수정과 확장이 매우 용이해집니다. 
+
+> TIP  
+> OCP(Open-Close Priciple)  
+> OCP(Open-Closed Priciple)는 소프트웨어는 확장에 대해 열려 있어야 하고, 수정에 대해서는 닫혀 있어야 한다는 원칙입니다.  
+> 쉽게 말해, 요구사항이 바뀌어 기존 코드를 변경해야 할 때, 기존 코드를 수정하지 않고 새로운 코드를 추가하는 것이 좋다는 것입니다.
+
+## 캡슐화
+
+`캡슐화(encapsulation)`는 객체 내부의 데이터나 메서드의 구체적인 로직을 외부에서 모르고 사용해도 문제가 없도록 하는 특성입니다.
+
+```python
+class MorningCar:
+    def __init__(self, fuel: int) -> None:
+        self.speed = 0
+        self.current_fuel = fuel
+        self.max_fuel = 50
+        if fuel > self.max_fuel:
+            raise Exception(f"최대로 넣을 수 있는 기름은 {max_fuel}L 입니다")
+
+    def accelerate(self) -> None:
+        if self.current_fuel == 0:
+            raise Exception("남아있는 기름이 없습니다")
+        self.speed += 1
+        self._current_fuel -= 1
+
+    def decelrate(self) -> None:
+        if self.current_fuel == 0:
+            raise Exception("남아있는 기름이 없습니다")
+        self.speed -= 1
+        self._current_fuel -= 1
+```
+
+이제 `MorningCar` 객체를 다음처럼 사용한다고 합시다.
+
+```python
+# 차량 생성
+>>> car = MorningCar(30)
+
+# 차량 주행
+>> car.accelerate()
+
+# 차량에 피룡한 기름 주유
+>>> car.current_fuel += 50
+
+# 차량의 남은 주유량을 퍼센트로 확인
+>>> f"{car.current_fuel / car.max_fuel * 100} %"
+```
+
+이때 위 코드의 차량에 필요한 기름을 주유하기 위해 `car.fuel`에 직접 접근하여 `+` 연산을 하고 있습니다. 또한 차량의 남은 주유량을 퍼센트로 확인하기 위해 `car_max_fuel`에도 접근하여 `/` 연산을 하고 있습니다.
+
+현재 MorningCar는 캡슐화를 지키지 않은 객체입니다. 왜냐하면 MorningCar을 사용하는 쪽에서 주유를 하기위해 car.current_fuel 에 직접 + 연산을 하고 있고, 남은 주유량 확인을 위해 직접 필요한 연산을 모두 하고 있기 때문입니다. 특히, car.current_fuel 에 직접 연산을 하게 되면, 자칫 car.max_fuel을 초과한 값이 car.current_fuel 에 들어갈 수 있으므로, 이는 버그에 취약한 코드입니다.
+
+이렇게 캡슐화되지 않은 코드는 본인의 책임을 다하고 있지도 않으며(SRP 위반), 추후 코드 변화에도 매우 취약합니다.  
+만약 MorningCar 객체의 fuel 변수의 이름이 다른 이름으로 바뀌게 되면 MorningCar를 사용하는 모든 코드를 수정해야 합니다.
+
+> TIP  
+> Getter, Setter와 캡슐화
+> 보통 객체지향은 Java로 처음 배우곤 하는데, 이때 캡슐화를 공부하는 과정에서 Getter/Setter 메서드를 접하는 경우가 많습니다. 객체의 인스턴스 변수는 모두 private으로 두고, 이름 Getter/setter 메서드로 접근하라고 배우게 되죠, 그리고 "캡슐화 = Getter/Setter 메서드 추가해주기"로 생각하게 되기도 합니다.
+> 정확히, 말하면 Getter/Setter 메서드는 캡슐화를 돕는 방법 중 하나이지 캡슐화 그 자체가 아닙니다. (더욱이 항상 모든 인스턴스 변수에 대해 Getter/Setter를 다는 것이 좋지 않습니다.) 캡슐화는 객체가 알고있느것을 외부에 알리지 않는것이며, 필요한 경웨 한해 객체 내부가 알고있는 것의 일부를 Getter 메서드로 제공하거나, Setter 메서드로 변경하게 하는 기능을 제공하는 것입니다.
+> 캡슐화는 Getter/Setter 메서드의 존재 여부로 결정되는 것이 아니라, 객체가 외부에서 알아도 되지 않을 내용을 잘 숨기고, 알아야 할 내용이나 제공하는 행동을 필요에 맞게 제공하는 행동을 이야기 합니. 캡슐화가 잘 된 객체는 사용하는 입장에서도 편합니다.
+
+### 캡슐화할 떄
+
+이제 MorningCar를 캡슐화 해봅니다.  
+
+우선 외부에서 이 객체에서 필요로 하는 기능을 메서드로 제공하고, 객체의 속성을 직접 수정하거나 가져다 쓰지 않도록 해야합니다. 객체 밖에서는 이러한 정보나 로직을 모르기 떄문에, 이를 `정보은닉`이라고도 부릅니다.
+
+```python
+class MorningCar:
+    def __init__(self, fuel: int) -> None:
+        self.speed = 0
+        self._current_fuel = fuel
+        self._max_fuel = 50
+        if fuel > self.max_fuel:
+            raise Exception(f"최대로 넣을 수 있는 기름은 {max_fuel}L 입니다")
+
+    def accelerate(self) -> None:
+        if self.fuel == 0:
+            raise Exception("남아있는 기름이 없습니다!")
+        self.speed += 1
+        self._current_fuel -= 1
+
+    def decelerate(self) -> None:
+        if self.fuel == 0:
+            raise Exception("남아있는 기름이 없습니다!")
+        self.speed -= 1
+        self._currnet_fuel -= 1
+
+    # 차량에 주유할 수 있는 기능을 메서드로 제공하고구체적인 로직은 객체 외부에서 몰라도 되도록 메서드 내에 둡니다.
+    def refuel(fuel: int) -> None:
+        if self._current_fuel + fuel > self.max_fuel:
+            raise Exception(f"추가로 더 넣을 수 있는 최대 연료는 {self.max_fuel - self._currnet_fuel}L 입니다")
+        self._current_fuel += fuel
+
+    # 차량의 남은 주유량을 퍼센트로 확인하는 기능을 메서드로 제공합니다.
+    def get_current_fuel_percentage(self) -> None:
+        return f"{self._current_fuel / self._max_fuel * 100} %"    
+```
+
+이제 MorningCar 객체를 다음처럼 사용할 수 있습니다.
+
+```python
+# 차량 생성
+>>> car = MorningCar(30)
+
+# 차량 주행
+>>> car.accelerate()
+
+# 차량에 필요한 기름 주유 (예외 발생함)
+>>> car.refuel(50)
+
+# 차량의 남은 주유량을 퍼센트로 확인
+>>> car.get_current_fuel_percentage()
+```
+
+최종적으로 MorningCar 를 사용하는 클라이언트 MorningCar의 속성에 직접 접근하여 연산할 필요가 없습니다.  
+그저 MorningCar 가 제공하는 퍼블릭 메서드를 사용하면 됩니다. 또한 MorningCar 의 속성 fuel 이나 max_fuel 등의 값이 바뀌어도 클라이언트의 코드는 바뀌지 않습니다. 따라서 수정에도 더 용이한 코드가 됩니다.
+
+## 정리
+
+- 객체지향은 객체들의 책임과 협력으로 이루어집니다.
+- 추상화를 통해 객체들의 공통 개념을 뽑아내어 한 차원 더 높은 객체를 만들 수 있습니다.
+  - 객체를 사용하는 입장에서 과연 어떤 역활을 객체가 필요한지 생각해보고 추상화된 객체를 생각하면 됩니다.
+  - 객체를 추상화한 클래스를 만든 후, 이 클래스를 상속받아 실제 구체적인 책임을 담당하는 객체를 만들 수 있습니다.
+- 다형성으로 코드는 수정과 확장에 유연해집니다.
+- 캡슐화를 통해 객체 내부의 정보와 구체적인 로직을 외부에 숨길 수 있습니다.
+  - 외부에선 그저 객체가 제공하는 공개 메서드를 사용하면 됩니다.
+  - 캡슐화로 코드는 수정과 확장에도 유연해집니다.
