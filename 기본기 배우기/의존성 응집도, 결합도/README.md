@@ -95,4 +95,96 @@ class User:
 
 객체의 책임을 맞게 속성과 메서드가 유기적으로 결합되어 있는 정도를 `응집도`라고 합니다.
 
-객체는 하나의 책임(SRP)을 수행하도록 잘 설계되어야 합니다. 그래야 중구난방으로 객체가 존재하지도
+객체는 하나의 책임(SRP)을 수행하도록 잘 설계되어야 합니다. 그래야 중구난방으로 객체가 존재하지도 않고 하나의 객체가 큰 책임을 가지지도 않습니다. 이때 응집도를 높게 코드를 작성한다면, 관련성이 높은 속성과 메서드가 모여있기에 흐름을 읽기 편해집니다. 또한 불필요한 속성과 메서드를 줄일 수 있어 탄탄한 코드를 작성할 수 있습니다.
+
+```python
+# 응집도가 낮은 경우입니다.
+class LowCohesion:
+    def __init__(self):
+        self.a = ...
+        self.b = ...
+        self.c = ...
+
+    def process_a(self):
+        print(self.a)
+
+    def process_b(self):
+        print(self.b)
+
+    def process_c(self):
+        print(self.c)
+
+# 응집도가 높은 경우입니다.
+class HighCohesion:
+    def __init__(self):
+        self.abc = ...
+
+    def process_a(self):
+        self.abc.process_a()
+
+    def process_c(self):
+        self.abc.process_b()
+
+    def process_c(self):
+        self.abc.process_c()
+
+```
+
+## 결합도
+
+`결합도`란 객체각 의존하는 정도(정적 의존성)을 말합니다.  
+기본적으로 한 객체가 다른 객체의 정보(속성, 메소드)를 많이 알수록 좋지 않습니다. 객체를 생성하거나 내부의 로직을 이해하는데 알아야할 것이 많아지게 되며, 의존하는 객체의 속성이나 메서드가 수정되면 다른 객체 역시 영향을 받기 떄문이죠.  
+하지만 객체지향 설계에서는 객체 간의 협력이 필수적이기에 아예 의존 관게를 없애는 것은 불가능합니다. 결국 결합도를 낮게 유지할 수 있는 방향으로 코드를 작성하는 게 중요합니다.
+
+보통 결합도를 낮추기 위해선, 캡슐화를 통해 내부 구현 로직을 숨기고 외부로 노출할 메서드를 추상화합니다. 또한 팩토리 패턴, 퍼사드 패턴과 같은 디자인 패턴을 활용하는 것도 하나의 방법입니다.
+
+```python
+# [BAD] Developer와 Company의 결합도가 높습니다.
+class Developer:
+    def drink_coffee(self):
+        ...
+
+    def turn_on_computer(self):
+        ...
+    
+    def open_ide(self):
+        ...
+
+    ...
+
+class Company:
+    def make_work(self):
+        developer = Developer()
+        print(f"{developer.name}가 일을 시작합니다!")
+        developer.drink_coffee()
+        developer.turn_on_computer()
+        developer.open_ide()
+        ...
+
+# [GOOD] 캡슐화를 통해 결합도를 낮춘다.
+class Developer:
+    def develop(self):
+        print(f"{self.name}가 일을 시작합니다!")
+        self.drink_coffee()
+        self.turn_on_computer()
+        self.open_ide()
+        ...
+
+    def drink_coffee(self):
+        ...
+    
+    def turn_on_computer(self):
+        ...
+
+    def open_ide(self):
+        ...
+
+    ...
+
+class Company:
+    def make_project(self):
+        developer = Developer()
+        developer.develop()
+```
+
+정리하면 개발 객체에는 책임에 따른 기능들이 충분히 모여있고(높은 응집도), 이런 객체들이 서로 협력하는 과정에서 의존하는 정도를 최소한으로 만드는 것(낮은 결합도)이 바로 객체지향에서 말하는 좋은 설계입니다.
