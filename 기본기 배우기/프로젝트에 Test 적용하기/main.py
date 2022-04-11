@@ -35,13 +35,14 @@ class GrabStore(Store):
         self._products = products
 
     def show_product(self, product_id):
-        return self._products[product_id]
+        ## 딕셔너리로 접근 보다는 없으면 None 처리되게 해야한다.
+        return self._products.get(product_id, None)
 
     def sell_product(self, product_id, money):
         # Validation 코드는 최소화
         product = self.show_product(product_id=product_id)
         if not product:
-            raise Exception("상품이 존재하지 않는다")
+            raise Exception("상품이 존재하지 않습니다")
 
         self._take_money(money=money)
         try:
