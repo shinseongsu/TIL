@@ -549,3 +549,104 @@ framework_and_driver/
    좀 더 명확한 네이밍이나, 팀에서 협의가 된 네이밍 규칙이 있다면 그것을 쓰면 됩니다.
 2. 완벽한 + 똑같은 아키텍처는 존재하지 않습니다.  
    상황에 따라 레이어 개수나 레이어별 의미는 달라질 수 있습니다. 중요한 것은 레이어를 잘 나눌 수 있도록 경계를 설정하고 의존 흐름을 바깥에서 안쪽으로 가져가는 것입니다.
+
+### 의조성 다이어그램
+
+#### 엔티티
+
+먼저 다음처럼 엔티티를 정의합니다. 엔티티는 도메인에 핵심을 표현하는 객체입니다.
+
+```python
+@dataclass
+class User:
+    id: str
+    name: str
+    password: str
+```
+
+#### 유즈 케이스
+
+유즈 케이스는 애플리케이션의 주요 정책과 비즈니스 로직이 들어있는 계층입니다. 우리는 "유저 생성하기" 관련 비즈니스 로직을 작성하고 있습니다.
+
+```python
+# application/use_cases/create_user.py
+from domain.entities import User
+from application.interface.user_repository import UserRepository
+
+@dataclass
+class CreateUserInputDto:
+    user_name: str
+    user_password: str
+
+@dataclass
+class CretaeUserOutputDto:
+    user_id: str
+
+
+class CreateUser:
+    def __init__(self, user_reposiotry:  UserRepository) -> None:
+        # 의존성 역전을 위해 같은 레이어(application)에 있는 추상화된 UserRepository에 의존합니다.
+        # 다시 말해, 인프라스트럭처에 정의될 구체적인 UserRepositoryImpl 객체에 의존하지 않습니다.
+        # 실제 런타임에서는 UserRepository를 상속받은 세부 클래스를 주입해야 합니다.
+        # 세부 클래스는 인프라스트럭처 레이어에 정의되며, 이는 의존성 주입하는 부분에서 주입합니다.
+        self._user_repository = user_repository
+
+    def execute(self, input_dto: CreateUserInputDto) -> CreateUserOutputDto:
+        user_id = self._user_repository.get_next_user_id()
+        user = User(id=user_id, name=input_dto.user_name, password=input_dto.user_password)
+        return CreateUserOutputDto(user_id=user_id)
+
+```
+
+> TIP  
+> DTO(Data Transfer Object) 란?  
+> DTO는 데이터를 주고받기 위해 사용하는 객체입니다.  
+> 보통 레이어간 의존성을 끊고, 도메인 모델을 보호하기 위해서 유즈 케이스의 입출력으로 DTO를 사용합니다.
+
+```python
+# application/user_cases/user_repository.py
+
+class UserRepository(ABC):
+    @abstractmethod
+    def save(user: User) -> None:
+        pass
+```
+
+#### 인터페이스 어댑터
+
+인터페이스 어댑터는 외부 영역(외부 DB, 웹 서버 등)과 내부 영역(유즈 케이스)의 인터페이스를 변환해주는 역활을 한다.  
+예를 들어 API 요청이 외부에서 들어왔을 때 유즈 케이스 입력으로 변환하여 유즈 케이스를 실행한 후 출력을 JSON데이터로 내보냅니다.
+
+일반적으로 웹, API 서버에서 컨트롤러가 바로 이 인터페이스 어댑터에 해당됩니다.
+
+```python
+# interaface_adapter/controller/create_user.py
+
+from application.use_cases.create_user import CreateUser, CreateUserInputDto
+from framework_and_driver.repository.userRepository import UserRepositoryImpl
+...
+
+class CreateUserJSONRequest(BaseModel):
+    name: str
+    password: str
+
+class CreateUserJSONResponse(BaseModel):
+    user_id: str
+
+def create_user(json_request: CreateUserJSONRequest) -> CreateUserJSONResponse:
+    # 엄밀하게 보면 framework를 의존하고 있기에 위배합니다. 보통 의존성 주입(DI) 프레임워크를 사용하거나 별도의 Factory를 둡니다.
+    user_repository = UserRepositoryImpl(...)
+    use_case = CreateUser(user_repository=user_repository)
+    input_dto = CreateUserInputDto(user_name=json_request.name, user_password=json_request.password)
+    output_dto = use_case.execute(input_dto)
+    return CreateUserJSONResponse(user_id=output_dto.user_id)
+```
+
+#### 프레임워크 & 드라이버
+
+프레임워크 & 드라이버에는 웹서버나 외부 데이터베이스 등 구체적으로 사용하는 세부 기술들이 놓이게 됩니다.  
+Web Server를 실행하는 프레임워크나 외부 데이터베이스와 직접적으로 통신하는 ORM등의 설정 파일이 포함됩니다.
+
+```python
+
+```
