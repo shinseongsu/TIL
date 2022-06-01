@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <title>myfirstMap</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script
+      type="text/javascript"
+      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vdjcxltshu"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="navbar">myfirstmap</div>
+    <div id="infoBox">
+      <div id="infoTitle">현재날짜</div>
+      <div id="infoContent">2020.07.10</div>
+    </div>
+    <div id="current">현재 위치</div>
+    <div id="map" style="width: 100%; height: 100vh"></div>
+
+    <script type="text/javascript" src="/data/data.js"></script>
+    <script>
+      var mapOptions = {
+        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        zoom: 10,
+      };
+
+      var map = new naver.maps.Map("map", mapOptions);
+
+      var markerList = [];
+      var infowindowList = [];
+
+      for (var i in data) {
+        var target = data[i];
+        var latlng = new naver.maps.LatLng(target.lat, target.lng);
+        marker = new naver.maps.Marker({
+          map: map,
+          position: latlng,
+          icon: {
+            content: "<div class='marker'></div>",
+            anchor: new naver.maps.Point(12, 12),
+          },
+        });
+
+        var content = `<div class='infowindow_wrap'>
+            <div class='infowindow_title'>${target.title}</div>
+            <div class='infowindow_content'>${target.content}</div>
+            <div class='infowindow_date'>${target.date}</div>
+        </div>`;
+
+        var infowindow = new naver.maps.InfoWindow({
+          content: content,
+          backgroundColor: "#00ff0000",
+          borderColor: "#00ff0000",
+          anchorSize: new naver.maps.Size(0, 0),
+        });
+
+        markerList.push(marker);
+        infowindowList.push(infowindow);
+      }
+
+      for (var i = 0, ii = markerList.length; i < ii; i++) {
+        naver.maps.Event.addListener(map, "click", ClickMap(i));
+        naver.maps.Event.addListener(
+          markerList[i],
+          "click",
+          getClickHandler(i)
+        );
+      }
+
+      function ClickMap(i) {
+        return function () {
+          var infowindow = infowindowList[i];
+          infowindow.close();
+        };
+      }
+
+      function getClickHandler(i) {
+        return function () {
+          var marker = markerList[i];
+          var infowindow = infowindowList[i];
+          if (infowindow.getMap()) {
+            infowindow.close();
+          } else {
+            infowindow.open(map, marker);
+          }
+        };
+      }
+
+      let currentUse = true;
+
+      $("#current").click(() => {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const latlng = new naver.maps.LatLng(lat, lng);
+            if (currentUse) {
+              marker = new naver.maps.Marker({
+                map: map,
+                position: latlng,
+                icon: {
+                  content:
+                    '<img class="pulse" draggable="false" unselectable="on" src="https://myfirstmap.s3.ap-northeast-2.amazonaws.com/circle.png" />',
+                  anchor: new naver.maps.Point(11, 11),
+                },
+              });
+              currentUse = false;
+            }
+            map.setZoom(14, false);
+            map.panTo(latlng);
+          });
+        } else {
+          alert("위치정보 사용 불가능");
+        }
+      });
+    </script>
+  </body>
+</html>
