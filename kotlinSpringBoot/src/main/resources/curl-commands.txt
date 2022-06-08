@@ -1,0 +1,10 @@
+Greeting Controller:
+=======================
+
+curl -i http://localhost:8080/v1/greeting/dilip
+
+
+
+VM options 에서 profile을 수정 가능하다.
+
+> -Dspring.profiles.active=prod
