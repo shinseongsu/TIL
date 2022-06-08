@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
     id("org.springframework.boot") version "2.7.0"
@@ -23,9 +24,15 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+
     runtimeOnly("com.h2database:h2")
-    runtimeOnly("org.postgresql:postgresql")
+    // runtimeOnly("org.postgresql:postgresql")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation("io.mockk:mockk:1.10.4")
+    testImplementation("com.ninja-squad:springmockk:3.0.1")
 }
 
 tasks.withType<KotlinCompile> {
@@ -37,4 +44,18 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+sourceSets {
+    test {
+        // after 7.1
+        java {
+            setSrcDirs(listOf("src/test/intg", "src/test/unit"))
+        }
+
+        // before 7.1
+//        withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+//            kotlin.setSrcDirs(listOf("src/test/intg", "src/test/unit"))
+//        }
+    }
 }
