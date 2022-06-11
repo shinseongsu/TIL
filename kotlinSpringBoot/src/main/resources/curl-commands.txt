@@ -8,3 +8,12 @@ curl -i http://localhost:8080/v1/greeting/dilip
 VM options 에서 profile을 수정 가능하다.
 
 > -Dspring.profiles.active=prod
+
+
+
+CREATE COURSE:
+=================
+curl -i \
+-d '{"id": null, "name": "Build Restful APIs using Kotlin and SpringBoot", "category": "Development"}' \
+-H "Content-Type: application/json" \
+-X POST http://localhost:8080/v1/courses
