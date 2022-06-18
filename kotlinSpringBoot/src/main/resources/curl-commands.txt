@@ -17,3 +17,21 @@ curl -i \
 -d '{"id": null, "name": "Build Restful APIs using Kotlin and SpringBoot", "category": "Development"}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8080/v1/courses
+
+
+
+SELECT COURSE:
+================
+curl -i \
+-d '{}' \
+-H "Content-Type: application/json" \
+-X GET http://localhost:8080/v1/courses
+
+
+UPDATE COURSE:
+==================
+=================
+curl -i \
+-d '{"id": null, "name": "Build Restful APIs using Kotlin and SpringBoot2", "category": "Development"}' \
+-H "Content-Type: application/json" \
+-X PUT http://localhost:8080/v1/courses/1
