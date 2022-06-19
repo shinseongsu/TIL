@@ -1,0 +1,76 @@
+body {
+    background-color: #636972;
+  }
+  button,
+  input {
+    outline: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  table {
+    border-spacing: 0;
+    border-style: none;
+    padding: 0;
+  }
+  th,
+  td {
+    border-spacing: 0;
+    border-style: none;
+    padding: 0;
+  }
+  
+  table {
+    width: 230px;
+  }
+  
+  .wrap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .display {
+    background-color: #323842;
+    color: white;
+    font-size: 30px;
+    width: 100%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-weight: 300;
+  }
+  
+  .cell_button {
+    width: 100%;
+    height: 30px;
+    background-color: #5f636a;
+    cursor: pointer;
+    border: 1px solid #323842;
+    color: white;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .cell_button:active {
+    background-color: #7f8187;
+  }
+  .all_clear,
+  .clear {
+    background-color: #434850;
+  }
+  
+  .operation,
+  .compute {
+    background-color: #ff9f0a;
+  }
+  
+  .operation:active,
+  .compute:active {
+    background-color: #ffbc54;
+  }
+  
+  .active {
+    border: 1px solid #1f232a;
+    background-color: #ffb645;
+  }
+  

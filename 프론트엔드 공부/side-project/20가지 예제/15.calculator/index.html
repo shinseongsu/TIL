@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <table>
+        <tr>
+          <td colspan="4">
+            <input type="text" class="display" value="0" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><button class="cell_button all_clear">AC</button></td>
+          <td><button class="cell_button clear">C</button></td>
+          <td><button class="cell_button operation">÷</button></td>
+        </tr>
+        <tr>
+          <td><button class="cell_button number">7</button></td>
+          <td><button class="cell_button number">8</button></td>
+          <td><button class="cell_button number">9</button></td>
+          <td><button class="cell_button operation">*</button></td>
+        </tr>
+        <tr>
+          <td><button class="cell_button number">4</button></td>
+          <td><button class="cell_button number">5</button></td>
+          <td><button class="cell_button number">6</button></td>
+          <td><button class="cell_button operation">-</button></td>
+        </tr>
+        <tr>
+          <td><button class="cell_button number">1</button></td>
+          <td><button class="cell_button number">2</button></td>
+          <td><button class="cell_button number">3</button></td>
+          <td><button class="cell_button operation">+</button></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button class="cell_button number">0</button>
+          </td>
+          <td><button class="cell_button number">.</button></td>
+          <td><button class="cell_button compute">=</button></td>
+        </tr>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
