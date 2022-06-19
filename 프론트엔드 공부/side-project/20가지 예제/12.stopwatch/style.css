@@ -1,0 +1,43 @@
+body {
+    background-color: #4cb799;
+  }
+  
+  button {
+    border: 0;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .timer_wrap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #fff;
+    padding: 42px 30px;
+    border-radius: 12px;
+    box-shadow: 9px 9px #215d4c;
+  }
+  
+  .timer {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 900;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  
+  .timer_button {
+    width: 33.3%;
+    height: 40px;
+    margin: 0 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
