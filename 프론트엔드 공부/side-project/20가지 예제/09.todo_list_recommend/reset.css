@@ -1,0 +1,224 @@
+@font-face {
+    font-family: "notosans";
+    font-weight: 100;
+    font-style: swap;
+    src: url("./font/noto-thin.woff2") format("woff2"),
+      url("./font/noto-thin.woff") format("woff"),
+      url("./font/noto-thin.otf") format("opentype");
+  }
+  
+  @font-face {
+    font-family: "notosans";
+    font-weight: 300;
+    font-style: swap;
+    src: url("./font/noto-light.woff2") format("woff2"),
+      url("./font/noto-light.woff") format("woff"),
+      url("./font/noto-light.otf") format("opentype");
+  }
+  
+  @font-face {
+    font-family: "notosans";
+    font-weight: 350;
+    font-style: swap;
+    src: url("./font/noto-demi.woff2") format("woff2"),
+      url("./font/noto-demi.woff") format("woff"),
+      url("./font/noto-demi.otf") format("opentype");
+  }
+  
+  @font-face {
+    font-family: "notosans";
+    font-weight: 400;
+    font-style: swap;
+    src: url("./font/noto-regular.woff2") format("woff2"),
+      url("./font/noto-regular.woff") format("woff"),
+      url("./font/noto-regular.otf") format("opentype");
+  }
+  
+  @font-face {
+    font-family: "notosans";
+    font-weight: 500;
+    font-style: swap;
+    src: url("./font/noto-medi.woff2") format("woff2"),
+      url("./font/noto-medi.woff") format("woff"),
+      url("./font/noto-medi.otf") format("opentype");
+  }
+  
+  @font-face {
+    font-family: "notosans";
+    font-weight: 700;
+    font-style: swap;
+    src: url("./font/noto-bold.woff2") format("woff2"),
+      url("./font/noto-bold.woff") format("woff"),
+      url("./font/noto-bold.otf") format("opentype");
+  }
+  
+  @font-face {
+    font-family: "notosans";
+    font-weight: 900;
+    font-style: swap;
+    src: url("./font/noto-black.woff2") format("woff2"),
+      url("./font/noto-black.woff") format("woff"),
+      url("./font/noto-black.otf") format("opentype");
+  }
+  
+  body {
+    font-family: "notosans";
+  }
+  
+  /* http://meyerweb.com/eric/tools/css/reset/
+  v2.0 | 20110126
+  License: none (public domain)
+  */
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+  }
+  
+  /* HTML5 display-role reset for older browsers */
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section {
+    display: block;
+  }
+  
+  body {
+    line-height: 1;
+  }
+  
+  ol,
+  ul {
+    list-style: none;
+  }
+  
+  blockquote,
+  q {
+    quotes: none;
+  }
+  
+  blockquote:before,
+  blockquote:after {
+    content: "";
+    content: none;
+  }
+  
+  q:before,
+  q:after {
+    content: "";
+    content: none;
+  }
+  
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  /*
+      base setting
+  */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  

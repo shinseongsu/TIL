@@ -1,0 +1,178 @@
+@charset "utf-8";
+
+body {
+  background-color: #a7cfff;
+  color: #555555;
+}
+
+button,
+input {
+  outline: 0;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button > i {
+  pointer-events: none;
+}
+
+.wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 600px;
+  height: 530px;
+  padding: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 6px 6px 16px #91bff6;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.header {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 24px;
+  box-shadow: 0 4px 21px 6px #ececec9e;
+}
+
+.todo_form {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.todo_input {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 14px;
+  background-color: #f6f6f6;
+  border-radius: 8px;
+}
+
+.todo_submit_button {
+  background-color: #9dc0e8;
+  color: #fff;
+  width: 80px;
+  margin-left: 12px;
+  font-size: 22px;
+  border-radius: 8px;
+}
+
+.todos {
+  margin-top: 106px;
+  margin-bottom: 25px;
+  overflow: auto;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.content {
+  width: 100%;
+  max-width: calc(100% - 135px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.content > input[type='checkbox'] {
+  transform: scale(1.5);
+  margin-left: 10px;
+}
+
+.content > label {
+  font-size: 16px;
+  margin-left: 20px;
+  padding-top: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.content > input[type='text'] {
+  font-size: 16px;
+  margin-left: 20px;
+  padding-top: 4px;
+  padding-left: 0;
+  width: 100%;
+}
+
+.item_buttons {
+  flex-shrink: 0;
+}
+
+.item_buttons > button {
+  width: 42px;
+  height: 42px;
+  color: #555555;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.item_buttons > button.todo_edit_button {
+  background-color: #bad4f5;
+}
+
+.item_buttons > button.todo_recommend_button .fas {
+  display:none;
+}
+
+.item_buttons > button.todo_recommend_button.active {
+  background-color: #f1df40;
+}
+
+.item_buttons > button.todo_recommend_button.active .far {
+  display: none;
+}
+
+.item_buttons > button.todo_recommend_button.active .fas {
+  display: block;
+}
+
+.todo_checkbox {
+  appearance: auto !important;
+}
+
+.item input[type='text'] {
+  display: none;
+}
+
+.edit_buttons {
+  display: none;
+}
+
+.pagination {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.pagination button {
+  width: 50px;
+  height: 30px;
+  color: #555555;
+  margin: 0 2px;
+  font-weight: 700;
+  border-radius: 6px;
+}
