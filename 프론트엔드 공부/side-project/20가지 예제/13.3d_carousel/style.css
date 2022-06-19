@@ -1,0 +1,70 @@
+.wrap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  h2 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 36px;
+  }
+  .container {
+    position: relative;
+    width: 420px;
+    height: 320px;
+    margin: 0 auto;
+    perspective: 1000px;
+  }
+  
+  .carousel {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform: translateZ(-346px);
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+  
+  .item {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    padding: 10px;
+    transition: transform 1s;
+  }
+  
+  .item:nth-child(1) {
+    transform: rotateY(0deg) translateZ(346px);
+  }
+  .item:nth-child(2) {
+    transform: rotateY(60deg) translateZ(346px);
+  }
+  .item:nth-child(3) {
+    transform: rotateY(120deg) translateZ(346px);
+  }
+  .item:nth-child(4) {
+    transform: rotateY(180deg) translateZ(346px);
+  }
+  .item:nth-child(5) {
+    transform: rotateY(240deg) translateZ(346px);
+  }
+  .item:nth-child(6) {
+    transform: rotateY(300deg) translateZ(346px);
+  }
+  
+  .buttons {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .next_button,
+  .prev_button {
+    color: #737373;
+    padding: 10px 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 24px;
+  }
+  
