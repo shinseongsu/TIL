@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: local
+  batch:
+    job:
+      names: ${job.name:NONE}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/zerobase_batch
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: zerobase
+    password: zerobase
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  batch:
+    jdbc:
+      initialize-schema: always
+external:
+  apartment-api:
+    path: http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade
+    service-key: '%2FAZVKcyk74moGpLTCAi6K6GDE9BUTRi%2BReTZW6bHYsBD4qHJgi%2F9Odu1FEZ%2BPHCevoJ7nAb94xolpbyGCbZyZQ%3D%3D'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  jpa:
+    database: h2
