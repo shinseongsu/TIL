@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.group.libraryapp.JunitTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-08T15:47:41" hostname="macui-MacBookAir.local" time="0.015">
+  <properties/>
+  <testcase name="test1()" classname="com.group.libraryapp.JunitTest" time="0.012"/>
+  <testcase name="test2()" classname="com.group.libraryapp.JunitTest" time="0.002"/>
+  <system-out><![CDATA[모든 테스트 시작 전
+각 테스트 시작 전
+테스트 1
+각 테스트 종료 후
+각 테스트 시작 전
+테스트 2
+각 테스트 종료 후
+모든 테스트 종료 후
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

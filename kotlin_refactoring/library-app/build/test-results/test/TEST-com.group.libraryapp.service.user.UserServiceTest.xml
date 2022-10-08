@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.group.libraryapp.service.user.UserServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-10-08T15:47:56" hostname="macui-MacBookAir.local" time="0.822">
+  <properties/>
+  <testcase name="유저의 저장이 정상 동작한다." classname="com.group.libraryapp.service.user.UserServiceTest" time="0.272"/>
+  <testcase name="유저의 수정이 정상 동작한다." classname="com.group.libraryapp.service.user.UserServiceTest" time="0.089"/>
+  <testcase name="대출 기록 응답에 포함된다." classname="com.group.libraryapp.service.user.UserServiceTest" time="0.145"/>
+  <testcase name="방금 두 경우가 합쳐진 테스트" classname="com.group.libraryapp.service.user.UserServiceTest" time="0.107"/>
+  <testcase name="대출 기록이 없는 유저도 응답에 포함된다." classname="com.group.libraryapp.service.user.UserServiceTest" time="0.057"/>
+  <testcase name="유저의 조회가 정상 동작한다." classname="com.group.libraryapp.service.user.UserServiceTest" time="0.059"/>
+  <testcase name="유저의 삭제가 정상 동작한다." classname="com.group.libraryapp.service.user.UserServiceTest" time="0.03"/>
+  <system-out><![CDATA[2022-10-09 00:47:56.905  INFO 2158 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.group.libraryapp.service.user.UserServiceTest], using SpringBootContextLoader
+2022-10-09 00:47:56.908  INFO 2158 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.group.libraryapp.service.user.UserServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-10-09 00:47:56.908  INFO 2158 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.group.libraryapp.service.user.UserServiceTest]: UserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-10-09 00:47:56.942  INFO 2158 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.group.libraryapp.LibrayAppApplication for test class com.group.libraryapp.service.user.UserServiceTest
+2022-10-09 00:47:56.948  INFO 2158 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-10-09 00:47:56.948  INFO 2158 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@8b727cb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6030eff1, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@194a653d, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5a02fca5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6b3a1151, org.springframework.test.context.support.DirtiesContextTestExecutionListener@c9234a0, org.springframework.test.context.transaction.TransactionalTestExecutionListener@46bbcb82, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@b91e024, org.springframework.test.context.event.EventPublishingTestExecutionListener@309ac89e, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2db0dd19, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@354ff4f6, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@315bb2bb, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@57e35236, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@7c9015c6, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@36b2b6e6]
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    select
+        user0_.id as id1_1_0_,
+        user0_.age as age2_1_0_,
+        user0_.name as name3_1_0_ 
+    from
+        user user0_ 
+    where
+        user0_.id=?
+Hibernate: 
+    update
+        user 
+    set
+        age=?,
+        name=? 
+    where
+        id=?
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_loan_history
+        (id, book_name, status, user_id) 
+    values
+        (default, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_loan_history
+        (id, book_name, status, user_id) 
+    values
+        (default, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_loan_history
+        (id, book_name, status, user_id) 
+    values
+        (default, ?, ?, ?)
+Hibernate: 
+    select
+        distinct user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_ 
+    left outer join
+        user_loan_history userloanhi1_ 
+            on (
+                userloanhi1_.user_id=user0_.id
+            )
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user_loan_history 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user_loan_history 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user_loan_history 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_loan_history
+        (id, book_name, status, user_id) 
+    values
+        (default, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_loan_history
+        (id, book_name, status, user_id) 
+    values
+        (default, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_loan_history
+        (id, book_name, status, user_id) 
+    values
+        (default, ?, ?, ?)
+Hibernate: 
+    select
+        distinct user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_ 
+    left outer join
+        user_loan_history userloanhi1_ 
+            on (
+                userloanhi1_.user_id=user0_.id
+            )
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user_loan_history 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user_loan_history 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user_loan_history 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    select
+        distinct user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_ 
+    left outer join
+        user_loan_history userloanhi1_ 
+            on (
+                userloanhi1_.user_id=user0_.id
+            )
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        user
+        (id, age, name) 
+    values
+        (default, ?, ?)
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_ 
+    where
+        user0_.name=?
+Hibernate: 
+    select
+        userloanhi0_.user_id as user_id4_2_0_,
+        userloanhi0_.id as id1_2_0_,
+        userloanhi0_.id as id1_2_1_,
+        userloanhi0_.book_name as book_nam2_2_1_,
+        userloanhi0_.status as status3_2_1_,
+        userloanhi0_.user_id as user_id4_2_1_ 
+    from
+        user_loan_history userloanhi0_ 
+    where
+        userloanhi0_.user_id=?
+Hibernate: 
+    delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+CLEAN 시작
+Hibernate: 
+    select
+        user0_.id as id1_1_,
+        user0_.age as age2_1_,
+        user0_.name as name3_1_ 
+    from
+        user user0_
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

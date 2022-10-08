@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.group.libraryapp.JunitCaculatorTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-10-08T15:47:41" hostname="macui-MacBookAir.local" time="0.137">
+  <properties/>
+  <testcase name="dividenTest()" classname="com.group.libraryapp.JunitCaculatorTest" time="0.113"/>
+  <testcase name="addTest()" classname="com.group.libraryapp.JunitCaculatorTest" time="0.001"/>
+  <testcase name="multiplyTest()" classname="com.group.libraryapp.JunitCaculatorTest" time="0.001"/>
+  <testcase name="minusTest()" classname="com.group.libraryapp.JunitCaculatorTest" time="0.0"/>
+  <testcase name="dividenExceptionTest()" classname="com.group.libraryapp.JunitCaculatorTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
