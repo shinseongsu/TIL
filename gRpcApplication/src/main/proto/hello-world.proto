@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "com.example.grpcapplication";
+option java_multiple_files = true;
+
+package com.example.grpcapplication;
+
+service HelloService {
+  rpc Hello(HelloReq) returns (HelloRes);
+}
+
+message HelloReq {
+  string message = 1;
+}
+
+message HelloRes {
+  string message = 1;
+}
