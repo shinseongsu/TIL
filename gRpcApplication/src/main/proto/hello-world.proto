@@ -5,14 +5,32 @@ option java_multiple_files = true;
 
 package com.example.grpcapplication;
 
-service HelloService {
-  rpc Hello(HelloReq) returns (HelloRes);
+service ProductService {
+  rpc Hello(ProductRequest) returns (ProductResponse);
+  rpc FindById(RequestById) returns (ProductResponse);
+  rpc Delete(RequestById) returns (ProductResponse);
+  rpc FindAll(EmptyRequest) returns (ProductResponseList);
 }
 
-message HelloReq {
-  string message = 1;
+message ProductResponseList {
+  repeated ProductResponse products = 1;
 }
 
-message HelloRes {
+message EmptyRequest {}
+
+message RequestById {
+  int64 id = 1;
+}
+
+message ProductRequest {
   string message = 1;
+  double price = 2;
+  int32 quantity_in_stock = 3;
+}
+
+message ProductResponse {
+  int64 id = 1;
+  string message = 2;
+  double price = 3;
+  int32 quantity_in_stock = 4;
 }
