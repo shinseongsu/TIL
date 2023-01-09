@@ -2,10 +2,10 @@ package com.example.grpcapplication.dto;
 
 public class ProductInputDTO {
     private final String name;
-    private final String price;
+    private final Double price;
     private final Integer quantityInStock;
 
-    public ProductInputDTO(String name, String price, Integer quantityInStock) {
+    public ProductInputDTO(String name, Double price, Integer quantityInStock) {
         this.name = name;
         this.price = price;
         this.quantityInStock = quantityInStock;
@@ -15,7 +15,7 @@ public class ProductInputDTO {
         return name;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
