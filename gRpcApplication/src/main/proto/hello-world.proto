@@ -6,7 +6,7 @@ option java_multiple_files = true;
 package com.example.grpcapplication;
 
 service ProductService {
-  rpc Hello(ProductRequest) returns (ProductResponse);
+  rpc Create(ProductRequest) returns (ProductResponse);
   rpc FindById(RequestById) returns (ProductResponse);
   rpc Delete(RequestById) returns (ProductResponse);
   rpc FindAll(EmptyRequest) returns (ProductResponseList);
@@ -17,20 +17,21 @@ message ProductResponseList {
 }
 
 message EmptyRequest {}
+message EmptyResponse {}
 
 message RequestById {
   int64 id = 1;
 }
 
 message ProductRequest {
-  string message = 1;
+  string name = 1;
   double price = 2;
   int32 quantity_in_stock = 3;
 }
 
 message ProductResponse {
   int64 id = 1;
-  string message = 2;
+  string name = 2;
   double price = 3;
   int32 quantity_in_stock = 4;
 }
