@@ -5,6 +5,7 @@ import com.example.grpcapplication.dto.ProductOutputDTO;
 
 import java.util.List;
 
+
 public interface IProductService {
 
     ProductOutputDTO create(ProductInputDTO inputDTO);

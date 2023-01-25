@@ -1,13 +1,16 @@
-package com.example.grpcapplication.service;
+package com.example.grpcapplication.service.impl;
 
 import com.example.grpcapplication.domain.Product;
 import com.example.grpcapplication.dto.ProductInputDTO;
 import com.example.grpcapplication.dto.ProductOutputDTO;
 import com.example.grpcapplication.repository.ProductRepository;
+import com.example.grpcapplication.service.IProductService;
 import com.example.grpcapplication.util.ProductConverterUtil;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductServiceImpl implements IProductService {
 
     private final ProductRepository productRepository;
