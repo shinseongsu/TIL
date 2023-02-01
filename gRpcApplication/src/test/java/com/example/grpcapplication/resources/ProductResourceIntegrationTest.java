@@ -13,7 +13,7 @@ import org.springframework.test.context.TestPropertySource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@TestPropertySource("classpath:application-test.yml")
+@TestPropertySource("classpath:application-test.properties")
 @DirtiesContext
 public class ProductResourceIntegrationTest {
 
