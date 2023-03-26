@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: client-service
+    
+server:
+  port: ${PORT:8081}
+
+eureka:
+  client:
+    service-url:
+      # defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: http://admin:admin123@localhost:8761/eureka/
+
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+    instance-id: ${spring.application.name}-${server.port}
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+      sensitive: false
