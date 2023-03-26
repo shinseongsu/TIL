@@ -1,0 +1,20 @@
+server:
+  port: ${PORT:8761}
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+  server:
+#    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 3000
+    response-cache-update-interval-ms: 30000 # ?? ??
+
+spring:
+  security:
+    basic:
+      enabled: true
+    user:
+      name: admin
+      password: admin123
