@@ -1,0 +1,11 @@
+type Query {
+    helloworld: String
+    greet(name: String!): String!
+    getRandomNumbers: [Int!]!
+    getEvent: Event!
+}
+
+type Event {
+    id: ID
+    eventType: String!
+}
