@@ -1,0 +1,9 @@
+
+### book 저장
+POST http://localhost:8080/book
+
+### Book 전체 조회
+GET http://localhost:8080/books
+
+### Books id 조회
+GET http://localhost:8080/book/1
