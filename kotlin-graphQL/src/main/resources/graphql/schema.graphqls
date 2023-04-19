@@ -3,6 +3,20 @@ type Query {
     greet(name: String!): String!
     getRandomNumbers: [Int!]!
     getEvent: Event!
+    getPosts: [Post!]!
+}
+
+type Post {
+    id: ID!
+    title: String!
+    description: String
+    author: User
+}
+
+type User {
+    id: ID!
+    name: String!
+    posts: [Post!]!
 }
 
 type Event {

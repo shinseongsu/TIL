@@ -33,6 +33,6 @@ class HelloWorldResolver {
 }
 
 data class Event (
-    private val id: UUID,
-    private val eventType: String
+    val id: UUID,
+    val eventType: String
 )
