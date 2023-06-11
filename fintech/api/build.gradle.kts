@@ -10,6 +10,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
     implementation(project(":domain"))
+    implementation(project(":kafka"))
 
     testImplementation("io.mockk:mockk:1.12.0")
     runtimeOnly("com.h2database:h2")
