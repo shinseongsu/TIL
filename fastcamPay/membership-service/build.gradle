@@ -6,6 +6,7 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'org.springframework.boot'
 }
 
 compileJava {
@@ -29,8 +30,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    implementation 'io.springfox:springfox-swagger-ui:2.10.5'
-    implementation 'io.springfox:springfox-swagger2:2.10.5'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     testImplementation 'com.tngtech.archunit:archunit:1.0.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -38,9 +40,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'javax.persistence:javax.persistence-api:2.2'
-    // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.jetbrains:annotations:23.0.0'
     testImplementation 'junit:junit:4.13.1'
+
+    runtimeOnly 'com.h2database:h2'
 }
 
 test {
