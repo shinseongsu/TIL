@@ -31,7 +31,7 @@ public class MemberRepository {
                 .id(id)
                 .email(member.getEmail())
                 .nickname(member.getNickname())
-                .birthDate(member.getBirthDate())
+                .birthday(member.getBirthday())
                 .createdAt(member.getCreatedAt())
                 .build();
     }

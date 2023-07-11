@@ -16,20 +16,20 @@ public class Member {
 
     private final String email;
 
-    private final LocalDate birthDate;
+    private final LocalDate birthday;
 
     private final LocalDateTime createdAt;
 
     private static final Long NAME_MAX_LENGTH = 10L;
 
     @Builder
-    public Member(Long id, String nickname, String email, LocalDate birthDate, LocalDateTime createdAt) {
+    public Member(Long id, String nickname, String email, LocalDate birthday, LocalDateTime createdAt) {
         validateNickname(nickname);
 
         this.id = id;
         this.nickname = Objects.requireNonNull(nickname);
         this.email = Objects.requireNonNull(email);
-        this.birthDate = Objects.requireNonNull(birthDate);
+        this.birthday = Objects.requireNonNull(birthday);
         this.createdAt = createdAt == null ? LocalDateTime.now() : createdAt;
     }
 

@@ -15,7 +15,7 @@ public class MemberWriteService {
         var member = Member.builder()
                 .nickname(command.nickname())
                 .email(command.email())
-                .birthDate(command.birthdate())
+                .birthday(command.birthday())
                 .build();
         return memberRepository.save(member);
     }
