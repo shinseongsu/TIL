@@ -1,1 +1,3 @@
 rootProject.name = 'fastcamPay'
+include 'membership-service'
+

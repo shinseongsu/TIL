@@ -15,8 +15,8 @@ public class RegisterMembershipController {
 
     private final RegisterMembershipUseCase registerMembershipUseCase;
 
-    @PostMapping("/mmebership/register")
-    void test(@RequestBody RegisterMembershipRequest request) {
+    @PostMapping("/membership/register")
+    void registerMembership(@RequestBody RegisterMembershipRequest request) {
         RegisterMembershipCommand command = RegisterMembershipCommand.builder()
                 .name(request.getName())
                 .address(request.getAddress())
