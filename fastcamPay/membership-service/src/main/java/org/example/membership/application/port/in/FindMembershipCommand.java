@@ -3,7 +3,7 @@ package org.example.membership.application.port.in;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.example.membership.common.SelfValidating;
+import org.example.common.SelfValidating;
 
 @Data
 @Builder

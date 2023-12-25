@@ -5,7 +5,7 @@ import org.example.membership.domain.Membership;
 
 public interface RegisterMembershipPort {
 
-    MembershipJpaEntity createMembership (
+    MembershipJpaEntity createMembership(
             Membership.MembershipName membershipName
             , Membership.MembershipEmail membershipEmail
             , Membership.MembershipAddress membershipAddress
