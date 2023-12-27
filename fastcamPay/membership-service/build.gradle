@@ -23,7 +23,7 @@ dependencies {
 docker {
     println(tasks.bootJar.outputs.files)
     name rootProject.name + '-' + project.name + ':' + version
-    dockerfile file('./Dockerfile')
+    dockerfile file('../Dockerfile')
     files tasks.bootJar.outputs.files
     buildArgs(['JAR_FILE': tasks.bootJar.outputs.files.singleFile.name])
 }
