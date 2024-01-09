@@ -1,0 +1,49 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    generate-ddl: true
+
+datasource:
+  property:
+    shards:
+      - master:
+          url: jdbc:mysql://localhost:3306/db1?serverTimezone=UTC&characterEncoding=UTF-8
+          username: user1
+          password: password
+          name: master1
+        slave:
+          url: jdbc:mysql://localhost:3306/db1?serverTimezone=UTC&characterEncoding=UTF-8
+          username: user1
+          password: password
+          name: slave1
+      - master:
+          url: jdbc:mysql://localhost:3307/db2?serverTimezone=UTC&characterEncoding=UTF-8
+          username: user2
+          password: password
+          name: master2
+        slave:
+          url: jdbc:mysql://localhost:3307/db2?serverTimezone=UTC&characterEncoding=UTF-8
+          username: user2
+          password: password
+          name: slave2
+
+sharding:
+  name:
+    strategy: MODULAR
+    mod: 2
+    rules:
+      - shard_no: 0
+        range_min: 0
+        range_max: 100000
+
+      - shard_no: 1
+        range_min: 100001
+        range_max: 200000
