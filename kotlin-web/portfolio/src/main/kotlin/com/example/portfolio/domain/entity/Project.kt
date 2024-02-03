@@ -51,6 +51,13 @@ class Project(
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
     var skills: MutableList<ProjectSkill> = mutableListOf()
 
+    fun getEndYearMonth(): String {
+        if(endYear == null || endMonth == null) {
+            return "Present"
+        }
+
+        return "${endYear}.${endMonth}"
+    }
 
     fun update(
         name: String,

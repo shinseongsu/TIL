@@ -1,9 +1,11 @@
 package com.example.portfolio.presentation.dto
 
+import com.example.portfolio.domain.entity.Introduction
+
 data class IntroductionDTO(
     val content: String
 ) {
-    constructor(introductionDTO: IntroductionDTO): this(
-        content = introductionDTO.content
+    constructor(introduction: Introduction): this(
+        content = introduction.content
     )
 }

@@ -28,23 +28,23 @@ class PresentationRepository(
         return achievementRepository.findAllByIsActive(true)
     }
 
-    fun getActiveExperience(): List<Experience> {
+    fun getActiveExperiences(): List<Experience> {
         return experienceRepository.findAllByIsActive(true)
     }
 
-    fun getActiveIntroduction(): List<Introduction> {
+    fun getActiveIntroductions(): List<Introduction> {
         return introductionRepository.findAllByIsActive(true)
     }
 
-    fun getActiveLink(): List<Link> {
+    fun getActiveLinks(): List<Link> {
         return linkRepository.findAllByIsActive(true)
     }
 
-    fun getActiveProject(): List<Project> {
+    fun getActiveProjects(): List<Project> {
         return projectRepository.findAllByIsActive(true)
     }
 
-    fun getActiveSkill(): List<Skill> {
+    fun getActiveSkills(): List<Skill> {
         return skillRepository.findAllByIsActive(true)
     }
 
