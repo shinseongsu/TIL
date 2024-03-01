@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import {Outlet, Link, NavLink} from "react-router-dom";
 
 export default function Layout() {
   return (
@@ -7,13 +7,17 @@ export default function Layout() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <NavLink to="/about" className={({isActive}) => (isActive ? "activeClass": "")}>About</NavLink>
           </li>
           <li>
-            <Link to="/dashboard">Dashboards</Link>
+            <NavLink to="/dashboard"
+              style={({isActive}) => ({
+                color: isActive ? 'pink' : ''
+              })}
+            >Dashboards</NavLink>
           </li>
           <li>
             <Link to="/nothing-here">Nothing Here</Link>
@@ -25,10 +29,16 @@ export default function Layout() {
             <Link to="/logout">Logout</Link>
           </li>
           <li>
-            <Link to="/team/123">Team 123</Link>
+            <NavLink to="/team/123" end>{({isActive}) => {
+              if(isActive) {
+                return "Team 123 (active)"
+              }
+              return "Team 123"
+            }}
+            </NavLink>
           </li>
           <li>
-            <Link to="/team/new">New Team</Link>
+            <NavLink to="/team/New" caseSensitive>New Team</NavLink>
           </li>
           <li>
             <Link to="/team/123/task/456">Team 123 Task 456</Link>
