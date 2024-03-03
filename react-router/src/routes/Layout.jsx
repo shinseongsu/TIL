@@ -1,4 +1,4 @@
-import {Outlet, Link, NavLink} from "react-router-dom";
+import {Outlet, Link, NavLink, useResolvedPath, useMatch} from "react-router-dom";
 
 export default function Layout() {
   return (
@@ -23,7 +23,7 @@ export default function Layout() {
             <Link to="/nothing-here">Nothing Here</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <CustomLink to="/login">Login</CustomLink>
           </li>
           <li>
             <Link to="/logout">Logout</Link>
@@ -48,4 +48,18 @@ export default function Layout() {
       <Outlet />
     </div>
   );
+}
+
+function CustomLink({children, to, ...props}) {
+  const resolved = useResolvedPath(to);
+  const match = useMatch({path: resolved.pathname, end: true})
+
+  return (
+      <div>
+        <Link to={to} {...props}>
+          {children}
+        </Link>
+        {match && "(match!)"}
+      </div>
+  )
 }
