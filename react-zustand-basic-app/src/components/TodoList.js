@@ -26,15 +26,15 @@ const TodoList = () => {
                 <button type='submit'>Add</button>
             </form>
             <ul>
-                {todos.map((todo) => {
+                {todos.map((todo) => (
                     <li key={todo.id}>
-                        <span style={{ textDecoration: todo.isCompleeted ? "line-through" : "unset" }}>
+                        <span style={{ textDecoration: todo.isCompleted ? "line-through" : "unset" }}>
                             {todo.text}{" "}
                         </span>
                         {!todo.isCompleted ? (<button onClick={() => completeTodo(todo.id)}>✅</button>) : null}
                         <button onClick={() => deleteTodo(todo.id)}>❌</button>
                     </li>
-                })}
+                ))}
             </ul>
         </div>
     )
