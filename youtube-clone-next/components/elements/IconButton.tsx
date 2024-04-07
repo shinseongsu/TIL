@@ -1,5 +1,4 @@
 import React from 'react';
-import {RxHamburgerMenu} from "react-icons/rx";
 
 const IconButton = ({ icon, onClickIcon = () => {} }) => {
     return (

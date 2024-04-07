@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, {DOMElement, ReactElement, ReactNode, useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import UserIcon from './UserIcon';
 import PagePadding from "@/components/PagePadding";
@@ -14,8 +14,9 @@ import {
 import Logo from "@/components/elements/Logo";
 import Navigator from "@/components/elements/Navigator";
 import {cn} from "@/lib/utils";
+import useUIState from "@/hook/useUIState";
 
-const HeaderDrawer = ({children}) => {
+const HeaderDrawer = ({children}: {children: ReactNode}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -24,7 +25,10 @@ const HeaderDrawer = ({children}) => {
             <DrawerContent className="w-[240px] h-full">
                 <div className="py-3">
                     <div className="px-3">
-                        <Logo isInDrawer onClickClose={() => setIsOpen(false)} />
+                        <Logo
+                            isInDrawer
+                            onClickClose={() => setIsOpen(false)}
+                        />
                     </div>
                     <Navigator />
                 </div>
@@ -33,7 +37,9 @@ const HeaderDrawer = ({children}) => {
     );
 };
 
-const Header = ({children}) => {
+const Header = ({children}: {children: React.ReactNode}) => {
+    const { headerImageSrc } = useUIState();
+
     const [isScrolled, setIsScrolled]  = useState(false);
     const headRef = useRef();
 
@@ -58,7 +64,9 @@ const Header = ({children}) => {
                         alt="mediaItem"
                         className="object-cover"
                         fill
-                        src="https://images.unsplash.com/photo-1707833558984-3293e794031c"/>
+                        src={
+                            headerImageSrc ||
+                            "https://images.unsplash.com/photo-1707833558984-3293e794031c"} />
                 </div>
                 <div className="absolute h-[400px] top-0 bg-black opacity-40 w-full"></div>
                 <div className="absolute h-[400px] top-0 bg-gradient-to-t from-black w-full"></div>

@@ -3,7 +3,7 @@
 import React from 'react';
 import { IoMdPlayCircle } from 'react-icons/io';
 
-const PlayListNav = ({playlist}) => {
+const PlayListNav = ({playlist}: {playlist: any}) => {
     const {
         id,
         owner,
