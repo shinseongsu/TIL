@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "tailwindcss/classnames-order": [
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/enforces-negative-arbitrary-values": [
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/enforces-shorthand": [
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/no-contradicting-classname": [
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ]
+  }
+}
