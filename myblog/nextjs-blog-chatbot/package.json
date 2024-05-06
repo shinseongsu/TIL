@@ -1,0 +1,37 @@
+{
+  "name": "nextjs-blog-chatbot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "supabase:login": "npx supabase login",
+    "genTypes": "supabase gen types typescript --project-id lhmvcvajtakmowibgkun > src/types/supabase.ts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.3.0",
+    "@supabase/supabase-js": "^2.43.1",
+    "class-variance-authority": "^0.7.0",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^5.2.0",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-tailwindcss": "^3.15.1",
+    "postcss": "^8",
+    "prettier": "3.2.5",
+    "supabase": "^1.165.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
