@@ -1,0 +1,38 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: payments
+  r2dbc:
+    url: r2dbc:pool:mariadb://localhost:3306/payment
+    username: user
+    password: 1234
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+server:
+  shutdown: graceful
+  port: 8080
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: always
+
+logging:
+  level:
+    com.example: debug
+    org.springframework.r2dbc.core: debug
+    org.springframework.r2dbc.connection.init: debug
+    org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler: off
+    org.springframework.web.HttpLogging: off
+  pattern:
+    console: "%d{HH:mm:ss.SSS}|%highlight(%-5level)|%X{txid:-}|%green(%t)|%logger|%blue(\\(%F:%L\\))|%msg%n"
+
+payment:
+  toss:
+    key:
+      client:
+      secret:
