@@ -12,6 +12,11 @@ spring:
     redis:
       host: localhost
       port: 6379
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db-init/schema.sql
+      data-locations: classpath:db-init/test-data.sql
 
 server:
   shutdown: graceful
@@ -36,3 +41,15 @@ payment:
     key:
       client:
       secret:
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  r2dbc:
+    url: r2dbc:pool:h2:mem://localhost/payment
+  sql:
+    init:
+      mode: always
+      data-locations: ""

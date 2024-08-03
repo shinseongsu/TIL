@@ -8,13 +8,13 @@ import java.time.LocalDateTime
 
 open class BaseEntity (
     @CreatedDate
-    var createAt: LocalDateTime? = null,
+    var createdAt: LocalDateTime? = null,
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null
 ): Serializable {
     override fun toString(): String {
         return kotlinToString(arrayOf(
-            BaseEntity::createAt,
+            BaseEntity::createdAt,
             BaseEntity::updatedAt
         ))
     }
